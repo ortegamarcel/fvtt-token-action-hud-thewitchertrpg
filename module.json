@@ -10,7 +10,11 @@
   ],
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "esmodules": [
-    "scripts/module.js"
+    "scripts/init.js",
+    "scripts/action-handler.js",
+    "scripts/roll-handler.js",
+    "scripts/system-manager.js",
+    "scripts/constants.js"
   ],
   "relationships": {
     "systems": [{

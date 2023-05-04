@@ -1,5 +1,6 @@
 {
-  "TAH_WITCHER": {
-      "combat": "Combat"
-  }
+    "TAH_WITCHER": {
+        "combat": "Combat",
+        "Weapons": "Weapons"
+    }
 }
