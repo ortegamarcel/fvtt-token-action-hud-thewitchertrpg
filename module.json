@@ -1,0 +1,64 @@
+{
+  "id": "fvtt-token-action-hud-TheWitcherTRPG",
+  "name": "fvtt-token-action-hud-TheWitcherTRPG",
+  "title": "Token Action HUD TheWitcherTRPG",
+  "description": "An integration of Token Action HUD for the system TheWitcherTRPG",
+  "authors": [
+    {
+      "name": "Marcel O."
+    }
+  ],
+  "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
+  "esmodules": [
+    "scripts/module.js"
+  ],
+  "relationships": {
+    "systems": [{
+      "id": "TheWitcherTRPG",
+      "type": "system",
+      "manifest": "https://github.com/AnthonyMonette/TheWitcherTRPG/releases/latest/download/system.json",
+      "compatibility": {
+        "verified": "0.96"
+      }
+    }],
+    "requires": [
+      {
+        "id": "token-action-hud-core",
+        "type": "module",
+        "compatibility": [
+          {
+            "minimum": "1.4.0",
+            "maximum": "1.4",
+            "verified": "1.4.0"
+          }
+        ]
+      }
+    ]
+  },
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "languages/de.json"
+    }
+  ],
+  "packs": [],
+  "scripts": [
+    "scripts/polyfills.js"
+  ],
+  "minimumCoreVersion": "0.6.2",
+  "compatibleCoreVersion": "10",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10.291",
+    "maximum": 11
+  },
+  "url": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
+  "manifest": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
+  "download": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION"
+}
