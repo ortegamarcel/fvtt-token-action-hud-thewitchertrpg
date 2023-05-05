@@ -10,7 +10,7 @@
   ],
   "version": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "esmodules": [
-    "scripts/module.js"
+    "scripts/init.js"
   ],
   "relationships": {
     "systems": [{
