@@ -18,12 +18,21 @@ export const CORE_MODULE = {
 export const REQUIRED_CORE_MODULE_VERSION = '1.4';
 
 /**
+ * <i>-tag icons
+ */
+export const ICON = {
+    defense: '<i class="fa fa-shield"></i>'
+}
+
+/**
  * Action type
  */
 export const ACTION_TYPE = {
-    attack: 'attack'
+    attack: 'attack',
+    defense: 'defense'
 };
 
 export const GROUP = {
-    weapons: { id: 'weapons', name: 'TAH_WITCHER.weapons', type: 'system' }
+    attack: { id: 'attack', name: 'TAH_WITCHER.attack', type: 'system' },
+    defense: { id: 'defense', name: 'WITCHER.Actor.Defense', type: 'system' }
 };

@@ -1,4 +1,4 @@
-import { ACTION_TYPE, GROUP } from "./constants.js";
+import { ACTION_TYPE, GROUP, ICON } from "./constants.js";
 import { Utils } from "./utils.js";
 
 export let ActionHandler = null;
@@ -15,28 +15,48 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
             const token = this.token;
             const actor = this.actor;
-            if (!token || !actor) {
+            if (!token || !actor || actor.type == 'loot') {
                 return;
             }
 
-            this._getCombat(actor, token.id, { id: GROUP.weapons.id, type: 'system' });
+            this._getAttacks(actor, token.id, { id: GROUP.attack.id, type: 'system' });
+            this._getDefense(actor, token.id, { id: GROUP.defense.id, type: 'system' });
 
             
             //if (settings.get("showHudTitle")) result.hudTitle = token.name;
         }
 
-        _getCombat(actor, tokenId, parent) {
-            // just one long list of actions for the combat category
+        _getAttacks(actor, tokenId, parent) {
+            const isMonster = actor.type == 'monster';
+            const hasAmmo = actor.items.some(item => item.type == 'weapon' && item.system.isAmmo && item.system.quantity > 0);
             const actions = actor.items
-                .filter(item => item.type === 'weapon' && item.system.equiped)
+                .filter(item => {
+                    const isWeapon = item.type == 'weapon';
+                    const isReliable = item.system.reliable > 0;
+                    const isEquipped = item.system.equiped;
+                    const isAvailable = item.system.quantity > 0;
+                    const isAmmo = item.system.isAmmo;
+                    const usesAmmo = item.system.usingAmmo;
+
+                    return isWeapon && isReliable && isAvailable && (isMonster || isEquipped) && !isAmmo && (!usesAmmo || hasAmmo);
+                })
                 .map(item => ({
                     id: item.id,
                     name: item.name,
                     encodedValue: [ACTION_TYPE.attack, actor.id, tokenId, item.id].join(this.delimiter),
                     img: Utils.getImage(item)
                 }));
-            console.log('actions :>> ', actions);
             this.addActions(actions, parent);
+        }
+
+        _getDefense(actor, tokenId, parent) {
+            const action = {
+                id: `defense_${tokenId}`,
+                name: Utils.i18n('WITCHER.Dialog.DefenseTitle'),
+                encodedValue: [ACTION_TYPE.defense, actor.id, tokenId].join(this.delimiter),
+                icon1: ICON.defense
+            };
+            this.addActions([action], parent);
         }
 
     // createList(parent, actor, tokenId, itemtype, checksort, sorting, label, selectedfunc=undefined) {

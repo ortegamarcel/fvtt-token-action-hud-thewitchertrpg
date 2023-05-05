@@ -1,7 +1,7 @@
 {
     "TAH_WITCHER": {
         "combat": "Kampf",
-        "weapons": "Waffen",
+        "attack": "Angriff",
         "magic": "Magie"
     }
 }

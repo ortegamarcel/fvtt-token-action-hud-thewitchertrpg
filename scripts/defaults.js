@@ -19,7 +19,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'combat',
                 name: coreModule.api.Utils.i18n('TAH_WITCHER.combat'),
                 groups: [
-                    { ...groups.weapons, nestId: 'combat_weapons' }
+                    { ...groups.attack, nestId: 'combat_attack' },
+                    { ...groups.defense, nestId: 'combat_defense' }
                 ]
             },
             {

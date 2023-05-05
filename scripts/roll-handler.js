@@ -8,7 +8,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         doHandleActionEvent(event, encodedValue) {
             let payload = encodedValue.split(this.delimiter);
 
-            if (payload.length != 4) {
+            if (payload.length < 3) {
                 super.throwInvalidValueErr();
             }
         
@@ -22,6 +22,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             switch (action) {
                 case ACTION_TYPE.attack:
                     actor.sheet._onItemRoll.call(actor.sheet, null, value);
+                    break;
+                case ACTION_TYPE.defense:
+                    actor.sheet._onDefenceRoll.call(actor.sheet);
                     break;
                 default:
                     console.warn(`token-action-hud-TheWitcherTRPG: Unknown action "${action}"`);
