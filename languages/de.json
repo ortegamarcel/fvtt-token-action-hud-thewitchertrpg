@@ -2,6 +2,10 @@
     "TAH_WITCHER": {
         "combat": "Kampf",
         "attack": "Angriff",
-        "magic": "Magie"
+        "magic": "Magie",
+        "Settings": {
+            "sortAlphabetically": "Fertigkeiten sortieren",
+            "sortAlphabeticallyHint": "Wenn angekreuzt, werden alle Fertigkeiten innerhalb ihrer Grundattribut-Kategorie von A nach Z sortiert."
+        }
     }
 }

@@ -2,6 +2,10 @@
     "TAH_WITCHER": {
         "combat": "Combat",
         "attack": "Attack",
-        "magic": "Magic"
+        "magic": "Magic",
+        "Settings": {
+            "sortAlphabetically": "Sort Skills",
+            "sortAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their stat-category."
+        }
     }
 }

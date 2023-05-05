@@ -1,4 +1,4 @@
-import { ACTION_TYPE, GROUP, ICON } from "./constants.js";
+import { ACTION_TYPE, GROUP, ICON, SKILL } from "./constants.js";
 import { Utils } from "./utils.js";
 
 export let ActionHandler = null;
@@ -21,6 +21,13 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
             this._getAttacks(actor, token.id, { id: GROUP.attack.id, type: 'system' });
             this._getDefense(actor, token.id, { id: GROUP.defense.id, type: 'system' });
+            this._getSkills(SKILL.int, actor, token.id, { id: GROUP.intSkills.id, type: 'system' });
+            this._getSkills(SKILL.ref, actor, token.id, { id: GROUP.refSkills.id, type: 'system' });
+            this._getSkills(SKILL.dex, actor, token.id, { id: GROUP.dexSkills.id, type: 'system' });
+            this._getSkills(SKILL.body, actor, token.id, { id: GROUP.bodySkills.id, type: 'system' });
+            this._getSkills(SKILL.emp, actor, token.id, { id: GROUP.empSkills.id, type: 'system' });
+            this._getSkills(SKILL.cra, actor, token.id, { id: GROUP.craSkills.id, type: 'system' });
+            this._getSkills(SKILL.will, actor, token.id, { id: GROUP.willSkills.id, type: 'system' });
 
             
             //if (settings.get("showHudTitle")) result.hudTitle = token.name;
@@ -57,6 +64,20 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 icon1: ICON.defense
             };
             this.addActions([action], parent);
+        }
+
+        _getSkills(skillSet, actor, tokenId, parent) {
+            let actions = Object.entries(skillSet)
+                .filter(([id, skill]) => skill.active)
+                .map(([id, skill]) => ({
+                    id,
+                    name: Utils.i18n(skill.name).split('(')[0].trim(),
+                    encodedValue: [ACTION_TYPE.skill, actor.id, tokenId, skill.statNum, skill.skillNum].join(this.delimiter)
+                }));
+            if (Utils.getSetting('sortAlphabetically')) {
+                actions = actions.sort((action1, action2) => action1.name.localeCompare(action2.name));
+            }
+            this.addActions(actions, parent);
         }
 
     // createList(parent, actor, tokenId, itemtype, checksort, sorting, label, selectedfunc=undefined) {

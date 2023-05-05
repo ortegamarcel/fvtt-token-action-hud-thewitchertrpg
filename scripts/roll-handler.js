@@ -15,16 +15,22 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const action = payload[0];
             const actorId  = payload[1];
             const tokenId  = payload[2];
-            const value = payload[3];
+            const args = payload.slice(3);
 
             const actor = Utils.getActor(actorId, tokenId);
                 
             switch (action) {
                 case ACTION_TYPE.attack:
-                    actor.sheet._onItemRoll.call(actor.sheet, null, value);
+                    const itemId = args[0];
+                    actor.sheet._onItemRoll.call(actor.sheet, null, itemId);
                     break;
                 case ACTION_TYPE.defense:
                     actor.sheet._onDefenceRoll.call(actor.sheet);
+                    break;
+                case ACTION_TYPE.skill:
+                    const statNum = Number(args[0]);
+                    const skillNum = Number(args[1]);
+                    actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
                     break;
                 default:
                     console.warn(`token-action-hud-TheWitcherTRPG: Unknown action "${action}"`);

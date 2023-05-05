@@ -28,6 +28,13 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'skills',
                 name: coreModule.api.Utils.i18n('WITCHER.Monster.SkillTab'),
                 groups: [
+                    { ...groups.intSkills, nestId: 'skills_int' },
+                    { ...groups.refSkills, nestId: 'skills_ref' },
+                    { ...groups.dexSkills, nestId: 'skills_dex' },
+                    { ...groups.bodySkills, nestId: 'skills_body' },
+                    { ...groups.empSkills, nestId: 'skills_emp' },
+                    { ...groups.craSkills, nestId: 'skills_cra' },
+                    { ...groups.willSkills, nestId: 'skills_will' },
                 ]
             },
             {
