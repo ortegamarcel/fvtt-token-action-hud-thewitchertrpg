@@ -20,17 +20,30 @@ export const registerSettings = function() {
         default: true
     });
 
-    game.settings.register(MODULE.ID, 'showSkillSkillpoints', {
-        name: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpoints'),
-        hint: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpointsHint'),
+    game.settings.register(MODULE.ID, 'showSkillSuffix', {
+        name: Utils.i18n('TAH_WITCHER.Settings.showSkillSuffix'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.showSkillSuffixHint'),
         scope: 'client',
         config: true,
         type: String,
         default: 'always',
         choices: {
-            never: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpointsNever'),
-            ifSkilled: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpointsIfSkilled'),
-            always: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpointsAlways')
+            never: Utils.i18n('TAH_WITCHER.Settings.showSkillSuffixNever'),
+            ifSkilled: Utils.i18n('TAH_WITCHER.Settings.showSkillSuffixIfSkilled'),
+            always: Utils.i18n('TAH_WITCHER.Settings.showSkillSuffixAlways')
+        }
+    });
+
+    game.settings.register(MODULE.ID, 'skillSuffix', {
+        name: Utils.i18n('TAH_WITCHER.Settings.skillSuffix'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.skillSuffixHint'),
+        scope: 'client',
+        config: true,
+        type: String,
+        default: 'basevalue',
+        choices: {
+            skillpoints: Utils.i18n('TAH_WITCHER.Settings.skillSuffixSkillpoints'),
+            basevalue: Utils.i18n('TAH_WITCHER.Settings.skillSuffixBasevalue')
         }
     });
 }

@@ -85,13 +85,18 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     const encodedValue = [ACTION_TYPE.skill, actor.id, tokenId, skill.statNum, skill.skillNum].join(this.delimiter);
                     let name = Utils.i18n(skill.name).split('(')[0].trim();
                     
-                    const showSkillpoints = Utils.getSetting('showSkillSkillpoints');
-                    if (showSkillpoints != 'never') {
+                    // Add suffix according on settings
+                    const showSuffix = Utils.getSetting('showSkillSuffix');
+                    if (showSuffix != 'never') {
                         const actorSkill = actor.system.skills[skill.stat][id];
                         let skillpoints = actorSkill.value;
                         actorSkill.modifiers.forEach(({ value }) => skillpoints += Number(value));
-                        if (showSkillpoints == 'always' || skillpoints > 0) {
-                            name += ` ${skillpoints}`;
+                        if (showSuffix == 'always' || skillpoints > 0) {
+                            let statValue = 0;
+                            if (Utils.getSetting('skillSuffix') == 'basevalue') {
+                                statValue = actor.system.stats[skill.stat].current
+                            }
+                            name += ` ${skillpoints + statValue}`;
                         }
                     }
 

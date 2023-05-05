@@ -8,11 +8,15 @@
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",
             "showSkillCategories": "Categorize Skills",
             "showSkillCategoriesHint": "If checked, all skills are put into their specific stat-category. Otherwise, they will be all shown next to each other.",
-            "showSkillSkillpoints": "Show Skill Skillpoints",
-            "showSkillSkillpointsHint": "Determines if the actual skillpoints of the skill should be shown.",
-            "showSkillSkillpointsNever": "No",
-            "showSkillSkillpointsIfSkilled": "Only if skilled (> 0)",
-            "showSkillSkillpointsAlways": "Yes"
+            "showSkillSuffix": "Show Skill Suffix",
+            "showSkillSuffixHint": "Determines if a suffix should be shown behind the skills. \"Only if skilled\" - spent skillpoints + modifiers > 0",
+            "showSkillSuffixNever": "No",
+            "showSkillSuffixIfSkilled": "Only if skilled",
+            "showSkillSuffixAlways": "Yes",
+            "skillSuffix": "Skill Suffix",
+            "skillSuffixHint": "The type of suffix that should be shown. \"Skillpoints\" - The actual number of points you have spent for a skill + all modifiers. \"Basevalue\" - The Skillpoints + current stat value.",
+            "skillSuffixSkillpoints": "Skillpoints",
+            "skillSuffixBasevalue": "Basevalue"
         }
     }
 }
