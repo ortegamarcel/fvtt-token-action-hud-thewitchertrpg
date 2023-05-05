@@ -38,7 +38,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     ...SKILL.emp,
                     ...SKILL.cra,
                     ...SKILL.will
-                }, actor, token.id, { id: GROUP.allSkills.id, type: 'system' })
+                }, actor, token.id, { id: GROUP.allSkills.id, type: 'system' });
             }
 
             
@@ -81,73 +81,28 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         _getSkills(skillSet, actor, tokenId, parent) {
             let actions = Object.entries(skillSet)
                 .filter(([id, skill]) => skill.active)
-                .map(([id, skill]) => ({
-                    id,
-                    name: Utils.i18n(skill.name).split('(')[0].trim(),
-                    encodedValue: [ACTION_TYPE.skill, actor.id, tokenId, skill.statNum, skill.skillNum].join(this.delimiter)
-                }));
+                .map(([id, skill]) => {
+                    const encodedValue = [ACTION_TYPE.skill, actor.id, tokenId, skill.statNum, skill.skillNum].join(this.delimiter);
+                    let name = Utils.i18n(skill.name).split('(')[0].trim();
+                    
+                    const showSkillpoints = Utils.getSetting('showSkillSkillpoints');
+                    if (showSkillpoints != 'never') {
+                        const actorSkill = actor.system.skills[skill.stat][id];
+                        let skillpoints = actorSkill.value;
+                        actorSkill.modifiers.forEach(({ value }) => skillpoints += Number(value));
+                        if (showSkillpoints == 'always' || skillpoints > 0) {
+                            name += ` ${skillpoints}`;
+                        }
+                    }
+
+                    return { id, name, encodedValue };
+                });
+
             if (Utils.getSetting('sortSkillsAlphabetically')) {
                 actions = actions.sort((action1, action2) => action1.name.localeCompare(action2.name));
             }
+
             this.addActions(actions, parent);
         }
-
-    // createList(parent, actor, tokenId, itemtype, checksort, sorting, label, selectedfunc=undefined) {
-    //     // create one sublist
-    //     const actions = actor.items.filter( item => item.type === itemtype && 
-    //         (!checksort || item.system.settings.general.sorting === sorting) &&
-    //         (!actor.system.settings.general.hideArchive || !item.system.archived))
-    //         .map(item => {
-    //         return {
-    //             id: item.id,
-    //             name: item.name,
-    //             encodedValue: [itemtype, actor.id, tokenId, item.id].join(this.delimiter),
-    //             cssClass: item.system.archived ? 'disabled' : selectedfunc ? (selectedfunc(item) ? 'toggle active' : 'toggle') : '',
-    //             img: Utils.getImage(item)
-    //         }
-    //     })
-    //     if (actions.length) {
-    //         const subcat = { id: sorting, name: Utils.i18n(label), type: 'system-derived'};
-    //         this.addGroup(subcat, parent);
-    //         this.addActions(actions, subcat);
-    //     }
-    // }
-
-    // _getSkills(actor, tokenId, parent) {
-    //     // up to four groups of skills
-    //     const table = {
-    //         Skill:      actor.system.settings.skills.labelCategory1 || 'CYPHERSYSTEM.Skills',
-    //         SkillTwo:   actor.system.settings.skills.labelCategory2 || 'CYPHERSYSTEM.SkillCategoryTwo',
-    //         SkillThree: actor.system.settings.skills.labelCategory3 || 'CYPHERSYSTEM.SkillCategoryThree',
-    //         SkillFour:  actor.system.settings.skills.labelCategory4 || 'CYPHERSYSTEM.SkillCategoryFour',
-    //     }
-    //     for (const [ sorting, label ] of Object.entries(table)) {
-    //         this.createList(parent, actor, tokenId, ACTION_SKILL, true, sorting, label)
-    //     }
-    // }
-
-    // _getAbilities(actor, tokenId, parent) {
-    //     // up to four groups of abilities
-    //     const table = {
-    //         Ability:      actor.system.settings.abilities.labelCategory1 || 'CYPHERSYSTEM.Abilities',
-    //         AbilityTwo:   actor.system.settings.abilities.labelCategory2 || 'CYPHERSYSTEM.AbilityCategoryTwo',
-    //         AbilityThree: actor.system.settings.abilities.labelCategory3 || 'CYPHERSYSTEM.AbilityCategoryThree',
-    //         AbilityFour:  actor.system.settings.abilities.labelCategory4 || 'CYPHERSYSTEM.AbilityCategoryFour',
-    //         Spell:        'CYPHERSYSTEM.Spells'
-    //     }
-    //     for (const [ sorting, label ] of Object.entries(table)) {
-    //         this.createList(parent, actor, tokenId, ACTION_ABILITY, true, sorting, label);
-    //     }
-    // }
-
-    // _getTags(actor, tokenId, parent) {
-    //     // current recursion is from actor.getFlag("cyphersystem", "recursion"), but the stored string is @<lowercasenanme>
-    //     const recursion = actor.getFlag("cyphersystem", "recursion")?.slice(1); // strip leading '@'
-    //     const recursionname = actor.items.find(item => item.name.toLowerCase() === recursion)?.name;
-    //     this.createList(parent, actor, tokenId, ACTION_RECURSION, false, 'recursion', 'CYPHERSYSTEM.Recursions', 
-    //         (item) => item.name == recursionname );
-    //     this.createList(parent, actor, tokenId, ACTION_TAG, false, 'tag', 'CYPHERSYSTEM.Tags',
-    //         (item) => item.system.active );
-    // }
     }
 });

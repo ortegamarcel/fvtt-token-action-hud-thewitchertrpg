@@ -7,7 +7,12 @@
             "sortSkillsAlphabetically": "Sort Skills",
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",
             "showSkillCategories": "Categorize Skills",
-            "showSkillCategoriesHint": "If checked, all skills are put into their specific stat-category. Otherwise, they will be all shown next to each other."
+            "showSkillCategoriesHint": "If checked, all skills are put into their specific stat-category. Otherwise, they will be all shown next to each other.",
+            "showSkillSkillpoints": "Show Skill Skillpoints",
+            "showSkillSkillpointsHint": "Determines if the actual skillpoints of the skill should be shown.",
+            "showSkillSkillpointsNever": "No",
+            "showSkillSkillpointsIfSkilled": "Only if skilled (> 0)",
+            "showSkillSkillpointsAlways": "Yes"
         }
     }
 }

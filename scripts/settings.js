@@ -19,4 +19,18 @@ export const registerSettings = function() {
         type: Boolean,
         default: true
     });
+
+    game.settings.register(MODULE.ID, 'showSkillSkillpoints', {
+        name: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpoints'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpointsHint'),
+        scope: 'client',
+        config: true,
+        type: String,
+        default: 'always',
+        choices: {
+            never: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpointsNever'),
+            ifSkilled: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpointsIfSkilled'),
+            always: Utils.i18n('TAH_WITCHER.Settings.showSkillSkillpointsAlways')
+        }
+    });
 }
