@@ -14,7 +14,9 @@
     "scripts/action-handler.js",
     "scripts/roll-handler.js",
     "scripts/system-manager.js",
-    "scripts/constants.js"
+    "scripts/constants.js",
+    "scripts/utils.js",
+    "scripts/defaults.js"
   ],
   "relationships": {
     "systems": [{

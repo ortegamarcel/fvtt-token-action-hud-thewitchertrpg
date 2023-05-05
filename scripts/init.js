@@ -1,19 +1,11 @@
-import { MySystemManager } from './system-manager.js';
+import { SystemManager } from './system-manager.js'
+import { MODULE, REQUIRED_CORE_MODULE_VERSION } from './constants.js'
 
-// For DEBUGGING
-/*
-import { ActionHandler   } from '../../token-action-hud-core/scripts/action-handlers/action-handler.js'
-import { RollHandler     } from '../../token-action-hud-core/scripts/roll-handlers/roll-handler.js'
-import { SystemManager   } from '../../token-action-hud-core/scripts/system-manager.js'
-import { Utils           } from '../../token-action-hud-core/scripts/utilities/utils.js'
-*/
-
-Hooks.once('tokenActionHudCoreApiReady', async () => {
-    const module = game.modules.get('fvtt-token-action-hud-TheWitcherTRPG');
+Hooks.on('tokenActionHudCoreApiReady', async () => {
+    const module = game.modules.get(MODULE.ID)
     module.api = {
-        requiredCoreModuleVersion: '1.4',
-        SystemManager: MySystemManager
-    };
-    console.log('test');
-    Hooks.call('tokenActionHudSystemReady', module);
+        requiredCoreModuleVersion: REQUIRED_CORE_MODULE_VERSION,
+        SystemManager
+    }
+    Hooks.call('tokenActionHudSystemReady', module)
 });
