@@ -1,7 +1,22 @@
 {
     "TAH_WITCHER": {
         "combat": "Kampf",
-        "weapons": "Waffen",
-        "magic": "Magie"
+        "attack": "Angriff",
+        "magic": "Magie",
+        "Settings": {
+            "sortSkillsAlphabetically": "Fertigkeiten sortieren",
+            "sortSkillsAlphabeticallyHint": "Wenn angekreuzt, werden alle Fertigkeiten innerhalb ihrer Kategorie von A nach Z sortiert.",
+            "showSkillCategories": "Fertigkeiten Kategorisieren",
+            "showSkillCategoriesHint": "Wenn angekreuz, werden alle Fertigkeiten in ihrer entsprechenden Grundattribut-Kategorie angezeigt. Ansonstent werden sie alle nebeneinander angezeigt.",
+            "showSkillSuffix": "Fertigkeiten Suffix anzeigen",
+            "showSkillSuffixHint": "Gibt an, ob ein Suffix hinter den Fertigkeiten angezeigt werden soll. \"Nur wenn geskillt\" - Skillpunkte + Modifikatoren > 0",
+            "showSkillSuffixNever": "Nein",
+            "showSkillSuffixIfSkilled": "Nur wenn geskillt",
+            "showSkillSuffixAlways": "Ja",
+            "skillSuffix": "Fertigkeiten Suffix",
+            "skillSuffixHint": "Der Suffix, der hinter den Fertigkeiten angezeigt werden soll. \"Skillpunkte\" - Die aktuellen Skillpunkte + Modifikatoren. \"Basiswert\" - Die Skillpunkte + aktueller Grundattribut-Wert.",
+            "skillSuffixSkillpoints": "Skillpunkte",
+            "skillSuffixBasevalue": "Basiswert"
+        }
     }
 }

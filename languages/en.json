@@ -1,7 +1,22 @@
 {
     "TAH_WITCHER": {
         "combat": "Combat",
-        "weapons": "Weapons",
-        "magic": "Magic"
+        "attack": "Attack",
+        "magic": "Magic",
+        "Settings": {
+            "sortSkillsAlphabetically": "Sort Skills",
+            "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",
+            "showSkillCategories": "Categorize Skills",
+            "showSkillCategoriesHint": "If checked, all skills are put into their specific stat-category. Otherwise, they will be all shown next to each other.",
+            "showSkillSuffix": "Show Skill Suffix",
+            "showSkillSuffixHint": "Determines if a suffix should be shown behind the skills. \"Only if skilled\" - spent skillpoints + modifiers > 0",
+            "showSkillSuffixNever": "No",
+            "showSkillSuffixIfSkilled": "Only if skilled",
+            "showSkillSuffixAlways": "Yes",
+            "skillSuffix": "Skill Suffix",
+            "skillSuffixHint": "The type of suffix that should be shown. \"Skillpoints\" - The actual number of points you have spent for a skill + all modifiers. \"Basevalue\" - The Skillpoints + current stat value.",
+            "skillSuffixSkillpoints": "Skillpoints",
+            "skillSuffixBasevalue": "Basevalue"
+        }
     }
 }

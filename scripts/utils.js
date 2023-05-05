@@ -1,4 +1,4 @@
-import { MODULE } from './constants.js'
+import { MODULE, SKILL } from './constants.js'
 
 export let Utils = null
 
@@ -10,7 +10,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @param {string=null} defaultValue The default value
          * @returns The setting value
          */
-        static getSetting (key, defaultValue = null) {
+        static getSetting(key, defaultValue = null) {
             let value = defaultValue ?? null
             try {
                 value = game.settings.get(MODULE.ID, key)
