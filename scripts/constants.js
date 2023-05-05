@@ -36,6 +36,7 @@ export const ACTION_TYPE = {
 export const GROUP = {
     attack: { id: 'attack', name: 'TAH_WITCHER.attack', type: 'system' },
     defense: { id: 'defense', name: 'WITCHER.Actor.Defense', type: 'system' },
+    allSkills: { id: 'all_skills', name: 'WITCHER.Monster.SkillTab', type: 'system' },
     intSkills: { id: 'int_skills', name: 'WITCHER.StInt', type: 'system' },
     refSkills: { id: 'ref_skills', name: 'WITCHER.StRef', type: 'system' },
     dexSkills: { id: 'dex_skills', name: 'WITCHER.StDex', type: 'system' },

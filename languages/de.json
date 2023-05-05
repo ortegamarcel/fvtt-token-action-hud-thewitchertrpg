@@ -4,8 +4,10 @@
         "attack": "Angriff",
         "magic": "Magie",
         "Settings": {
-            "sortAlphabetically": "Fertigkeiten sortieren",
-            "sortAlphabeticallyHint": "Wenn angekreuzt, werden alle Fertigkeiten innerhalb ihrer Grundattribut-Kategorie von A nach Z sortiert."
+            "sortSkillsAlphabetically": "Fertigkeiten sortieren",
+            "sortSkillsAlphabeticallyHint": "Wenn angekreuzt, werden alle Fertigkeiten innerhalb ihrer Kategorie von A nach Z sortiert.",
+            "showSkillCategories": "Fertigkeiten Kategorisieren",
+            "showSkillCategoriesHint": "Wenn angekreuz, werden alle Fertigkeiten in ihrer entsprechenden Grundattribut-Kategorie angezeigt. Ansonstent werden sie alle nebeneinander angezeigt."
         }
     }
 }
