@@ -1,4 +1,4 @@
-import { ACTION_TYPE } from "./constants.js";
+import { ACTION_TYPE, MODULE } from "./constants.js";
 import { Utils } from "./utils.js";
 
 export let RollHandler = null
@@ -33,7 +33,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
                     break;
                 default:
-                    console.warn(`token-action-hud-TheWitcherTRPG: Unknown action "${action}"`);
+                    console.warn(`${MODULE.ID}: Unknown action "${action}"`);
                     break;
             }
 
