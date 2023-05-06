@@ -2,7 +2,7 @@
  * Module-based constants
  */
 export const MODULE = {
-    ID: 'fvtt-token-action-hud-TheWitcherTRPG'
+    ID: 'fvtt-token-action-hud-thewitchertrpg'
 };
 
 /**

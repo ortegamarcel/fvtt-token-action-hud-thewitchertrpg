@@ -21,7 +21,7 @@ Token Action HUD is a repositionable HUD of actions for a selected token.
 ## Method 1
 1. On Foundry VTT's **Configuration and Setup** screen, go to **Add-on Modules**
 2. Click **Install Module**
-3. In the Manifest URL field, paste: `https://github.com/ortegamarcel/fvtt-token-action-hud-TheWitcherTRPG/releases/latest/download/module.json`
+3. In the Manifest URL field, paste: `https://github.com/ortegamarcel/fvtt-token-action-hud-thewitchertrpg/releases/latest/download/module.json`
 4. Click **Install** next to the pasted Manifest URL
 
 ## Required Modules
@@ -32,7 +32,7 @@ Token Action HUD is a repositionable HUD of actions for a selected token.
 Token Action HUD uses either the [Color Picker](https://foundryvtt.com/packages/color-picker), [libThemer](https://foundryvtt.com/packages/lib-themer) or [VTTColorSettings](https://foundryvtt.com/packages/colorsettings) library modules for its color picker settings. Only one is required.
 
 # Known issues
-**The Skills HUD doesn't work on TheWitcherTRPG v0.96**. The [Witcher-system](https://github.com/AnthonyMonette/TheWitcherTRPG) v0.96 currently doesn't expose the necessary function to do skill rolls. That's why skills currently don't work. If you don't want to wait for a fix, you can use [this version]() of the system. This is a fork from the original that already includes a fix and some other features, like [improved inventory](https://github.com/ortegamarcel/TheWitcherTRPG/pull/2) and [zoomable images](https://github.com/ortegamarcel/TheWitcherTRPG/pull/8).
+**The Skills HUD doesn't work on TheWitcherTRPG v0.96**. The [Witcher-system](https://github.com/AnthonyMonette/TheWitcherTRPG) v0.96 currently doesn't expose the necessary function to do skill rolls. That's why skills currently don't work. If you don't want to wait for a fix, you can use [this version]() of the system. This is a fork from the original that already includes a fix and some other features, like [improved inventory](https://github.com/ortegamarcel/TheWitcherTRPG/wiki/Features#improved-inventory) and [zoomable images](https://github.com/ortegamarcel/TheWitcherTRPG/wiki/Features#zoomable-images).
 
 Alternatively you can paste the following code into **row 2635** of `<foundry_path>\Data\systems\TheWitcherTRPG\module\sheets\WitcherActorSheet.js` **before the `}`**.
 
@@ -62,6 +62,6 @@ It should look like this:
 
 # Support
 
-For questions, feature requests or bug reports, please open an issue [here](https://github.com/ortegamarcel/fvtt-token-action-hud-TheWitcherTRPG/issues).
+For questions, feature requests or bug reports, please open an issue [here](https://github.com/ortegamarcel/fvtt-token-action-hud-thewitchertrpg/issues).
 
 Pull requests are welcome. Please include a reason for the request or create an issue before starting one.
