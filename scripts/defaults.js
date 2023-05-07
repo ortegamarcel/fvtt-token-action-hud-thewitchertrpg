@@ -43,6 +43,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'magic',
                 name: coreModule.api.Utils.i18n('TAH_WITCHER.magic'),
                 groups: [
+                    { ...groups.spells, nestId: 'magic_spells' },
+                    { ...groups.invocations, nestId: 'magic_invocations' },
+                    { ...groups.signs, nestId: 'magic_signs' },
+                    { ...groups.rituals, nestId: 'magic_rituals' },
+                    { ...groups.hexes, nestId: 'magic_hexes' },
                 ]
             }
         ],

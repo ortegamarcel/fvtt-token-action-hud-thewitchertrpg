@@ -15,7 +15,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
             const token = this.token;
             const actor = this.actor;
-            if (!token || !actor || actor.type == 'loot') {
+            if (!token || !actor || (actor.type != 'character' && actor.type != 'monster')) {
                 return;
             }
 
@@ -40,6 +40,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     ...SKILL.will
                 }, actor, token.id, { id: GROUP.allSkills.id, type: 'system' });
             }
+            this._getMagic('Spells', actor, token.id, { id: GROUP.spells.id, type: 'system' });
+            this._getMagic('Invocations', actor, token.id, { id: GROUP.invocations.id, type: 'system' });
+            this._getMagic('Witcher', actor, token.id, { id: GROUP.signs.id, type: 'system' });
+            this._getMagic('Rituals', actor, token.id, { id: GROUP.rituals.id, type: 'system' });
+            this._getMagic('Hexes', actor, token.id, { id: GROUP.hexes.id, type: 'system' });
 
             
             //if (settings.get("showHudTitle")) result.hudTitle = token.name;
@@ -107,6 +112,33 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 actions = actions.sort((action1, action2) => action1.name.localeCompare(action2.name));
             }
 
+            this.addActions(actions, parent);
+        }
+
+        _getMagic(type, actor, tokenId, parent) {
+            const actions = actor.items
+                .filter(item => item.type == 'spell' && item.system.class == type)
+                .map(item => {
+                    let name = item.name;
+                    const showCost = Utils.getSetting('showMagicStaCost');
+                    if (showCost) {
+                        if (item.system.staminaIsVar) {
+                            const varCostLabel = Utils.getSetting('magicVarStaCostLabel');
+                            if (varCostLabel) {
+                                name += ` (${Utils.getSetting('magicVarStaCostLabel')})`;
+                            }
+                        } else {
+                            name += ` (${item.system.stamina})`;
+                        }
+                    }
+                    return {
+                        id: item.id,
+                        name,
+                        tooltip: item.system.effect,
+                        img: Utils.getImage(item),
+                        encodedValue: [ACTION_TYPE.castMagic, actor.id, tokenId, item.id].join(this.delimiter)
+                    }
+                });
             this.addActions(actions, parent);
         }
     }

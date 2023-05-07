@@ -16,7 +16,11 @@
             "skillSuffix": "Fertigkeiten Suffix",
             "skillSuffixHint": "Der Suffix, der hinter den Fertigkeiten angezeigt werden soll. \"Skillpunkte\" - Die aktuellen Skillpunkte + Modifikatoren. \"Basiswert\" - Die Skillpunkte + aktueller Grundattribut-Wert.",
             "skillSuffixSkillpoints": "Skillpunkte",
-            "skillSuffixBasevalue": "Basiswert"
+            "skillSuffixBasevalue": "Basiswert",
+            "showMagicStaCost": "Zeige AUS-Kosten an",
+            "showMagicStaCostHint": "Wenn angekreuzt, werden hinter allen Zaubersprüchen die Ausdauer Kosten angezeigt.",
+            "magicVarStaCostLabel": "Zeichen für variable AUS-Kosten",
+            "magicVarStaCostLabelHint": "Wenn AUS-Kosten angezeigt werden, ist das die Zeichenkette die hinter Zaubern mit variablen Kosten angezeigt wird. Lasse es leer, damit nichts angezeigt wird."
         }
     }
 }
