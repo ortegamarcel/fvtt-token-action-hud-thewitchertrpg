@@ -118,13 +118,27 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         _getMagic(type, actor, tokenId, parent) {
             const actions = actor.items
                 .filter(item => item.type == 'spell' && item.system.class == type)
-                .map(item => ({
-                    id: item.id,
-                    name: item.system.staminaIsVar ? `${item.name} (X)` : `${item.name} (${item.system.stamina})`,
-                    tooltip: item.system.effect,
-                    img: Utils.getImage(item),
-                    encodedValue: [ACTION_TYPE.castMagic, actor.id, tokenId, item.id].join(this.delimiter)
-                }));
+                .map(item => {
+                    let name = item.name;
+                    const showCost = Utils.getSetting('showMagicStaCost');
+                    if (showCost) {
+                        if (item.system.staminaIsVar) {
+                            const varCostLabel = Utils.getSetting('magicVarStaCostLabel');
+                            if (varCostLabel) {
+                                name += ` (${Utils.getSetting('magicVarStaCostLabel')})`;
+                            }
+                        } else {
+                            name += ` (${item.system.stamina})`;
+                        }
+                    }
+                    return {
+                        id: item.id,
+                        name,
+                        tooltip: item.system.effect,
+                        img: Utils.getImage(item),
+                        encodedValue: [ACTION_TYPE.castMagic, actor.id, tokenId, item.id].join(this.delimiter)
+                    }
+                });
             this.addActions(actions, parent);
         }
     }
