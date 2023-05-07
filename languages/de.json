@@ -3,6 +3,7 @@
         "combat": "Kampf",
         "attack": "Angriff",
         "magic": "Magie",
+        "professionSkills": "Berufsfertigkeiten",
         "Settings": {
             "sortSkillsAlphabetically": "Fertigkeiten sortieren",
             "sortSkillsAlphabeticallyHint": "Wenn angekreuzt, werden alle Fertigkeiten innerhalb ihrer Kategorie von A nach Z sortiert.",

@@ -31,7 +31,8 @@ export const ACTION_TYPE = {
     attack: 'attack',
     defense: 'defense',
     skill: 'skill',
-    castMagic: 'castMagic'
+    professionSkill: 'profession_skill',
+    castMagic: 'castMagic',
 };
 
 export const GROUP = {
@@ -48,6 +49,9 @@ export const GROUP = {
     empSkills: { id: 'emp_skills', name: 'WITCHER.StEmp', type: 'system' },
     craSkills: { id: 'cra_skills', name: 'WITCHER.StCra', type: 'system' },
     willSkills: { id: 'will_skills', name: 'WITCHER.StWill', type: 'system' },
+
+    // profession skills
+    professionSkills: { id: 'profession_skills', name: 'TAH_WITCHER.professionSkills', type: 'system' },
 
     // magic
     spells: { id: 'spells', name: 'WITCHER.Spell.Spells', type: 'system' },

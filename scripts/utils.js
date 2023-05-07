@@ -33,5 +33,29 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 coreModule.api.Logger.debug(`Setting '${key}' not found`)
             }
         }
+
+        /**
+         * Returns all profession skills with `level`, `stat`, `skillName` and `definition`.
+         * @param {Item} profession 
+         */
+        static getAllProfessionSkills(profession) {
+            if (!profession || profession.type != 'profession') {
+                return;
+            }
+
+            const skills = [
+                { ...profession.system.definingSkill },
+                { ...profession.system.skillPath1.skill1 },
+                { ...profession.system.skillPath1.skill2 },
+                { ...profession.system.skillPath1.skill3 },
+                { ...profession.system.skillPath2.skill1 },
+                { ...profession.system.skillPath2.skill2 },
+                { ...profession.system.skillPath2.skill3 },
+                { ...profession.system.skillPath3.skill1 },
+                { ...profession.system.skillPath3.skill2 },
+                { ...profession.system.skillPath3.skill3 },
+            ];
+            return skills;
+        }
     }
 })

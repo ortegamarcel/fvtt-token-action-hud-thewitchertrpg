@@ -18,11 +18,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const args = payload.slice(3);
 
             const actor = Utils.getActor(actorId, tokenId);
-            let itemId;
+            let itemId = args?.[0];
+            const item = actor.items.get(itemId);
                 
             switch (action) {
                 case ACTION_TYPE.attack:
-                    itemId = args[0];
                     actor.sheet._onItemRoll.call(actor.sheet, null, itemId);
                     break;
                 case ACTION_TYPE.defense:
@@ -33,11 +33,23 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     const skillNum = Number(args[1]);
                     actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
                     break;
-                case ACTION_TYPE.castMagic:
-                    itemId = args[0];
+                case ACTION_TYPE.professionSkill:
+                    const skillName = args[0];
+                    const _event = this._createProfessionSkillEvent(actor, skillName);
                     // right click
                     if (event.which == 3) {
-                        this._showDescription(actor, itemId, () => {
+                        const skill = this._getProfessionSkill(actor, skillName);
+                        this._showDescription(skill.skillName, skill.definition, () => {
+                            actor.sheet._onProfessionRoll.call(actor.sheet, _event);
+                        });
+                    } else {
+                        actor.sheet._onProfessionRoll.call(actor.sheet, _event);
+                    }
+                    break;
+                case ACTION_TYPE.castMagic:
+                    // right click
+                    if (event.which == 3) {
+                        this._showDescription(item.name, `<p>${item.system.effect}</p>`, () => {
                             actor.sheet._onSpellRoll.call(actor.sheet, null, itemId);
                         });
                     } else {
@@ -54,12 +66,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         }
 
         /** Shows the description or effect of an item. */
-        async _showDescription(actor, itemId, rollFn) {
-            const item = actor.items.get(itemId);
-            if (!item) {
-                return;
-            }
-            
+        async _showDescription(title, content, rollFn) {
             let buttons = {};
             if (rollFn) {
                 buttons = {
@@ -75,10 +82,34 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             }
 
             return new Dialog({
-                title: item.name,
-                content: `<p>${item.system.description || item.system.effect}</p>`,
+                title,
+                content,
                 buttons
             }).render(true);
+        }
+
+        _getProfessionSkill(actor, skillName) {
+            const profession = actor.items.find(item => item.type == 'profession');
+            const professionSkills = Utils.getAllProfessionSkills(profession);
+            return professionSkills.find(skill => skill.skillName == skillName);
+        }
+
+        _createProfessionSkillEvent(actor, skillName) {
+            const skill = this._getProfessionSkill(actor, skillName);
+            if (skill) {
+                return {
+                    currentTarget: {
+                        closest: () => ({
+                            dataset: {
+                                stat: skill.stat,
+                                level: skill.level,
+                                name: skill.skillName,
+                                effet: skill.definition
+                            }
+                        })
+                    }
+                };
+            }
         }
     }
 });

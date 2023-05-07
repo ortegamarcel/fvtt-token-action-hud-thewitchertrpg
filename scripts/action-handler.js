@@ -40,6 +40,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     ...SKILL.will
                 }, actor, token.id, { id: GROUP.allSkills.id, type: 'system' });
             }
+            this._getProfessionSkills(actor, token.id, { id: GROUP.professionSkills.id, type: 'system' });
             this._getMagic('Spells', actor, token.id, { id: GROUP.spells.id, type: 'system' });
             this._getMagic('Invocations', actor, token.id, { id: GROUP.invocations.id, type: 'system' });
             this._getMagic('Witcher', actor, token.id, { id: GROUP.signs.id, type: 'system' });
@@ -99,7 +100,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                         if (showSuffix == 'always' || skillpoints > 0) {
                             let statValue = 0;
                             if (Utils.getSetting('skillSuffix') == 'basevalue') {
-                                statValue = actor.system.stats[skill.stat].current
+                                statValue = actor.system.stats[skill.stat].current;
                             }
                             name += ` ${skillpoints + statValue}`;
                         }
@@ -112,6 +113,44 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 actions = actions.sort((action1, action2) => action1.name.localeCompare(action2.name));
             }
 
+            this.addActions(actions, parent);
+        }
+
+        _getProfessionSkills(actor, tokenId, parent) {
+            const profession = actor.items.find(item => item.type == 'profession');
+            if (!profession) {
+                console.log('TAH_WITCHER: No profession');
+                return;
+            }
+            const professionSkills = Utils.getAllProfessionSkills(profession);
+            if (!professionSkills) {
+                console.log('TAH_WITCHER: No profession skills');
+                return;
+            }
+            const actions = professionSkills
+                .filter(({ level }) => level != null)
+                .map((skill, index) => {
+                    let name = skill.skillName.toCapitalCase();
+
+                    // Add suffix according on settings
+                    const showSuffix = Utils.getSetting('showSkillSuffix');
+                    if (showSuffix != 'never') {
+                        const skillpoints = Number(skill.level);
+                        if (showSuffix == 'always' || skillpoints > 0) {
+                            let statValue = 0;
+                            if (Utils.getSetting('skillSuffix') == 'basevalue') {
+                                statValue = actor.system.stats[skill.stat].current;
+                            }
+                            name += ` ${skillpoints + statValue}`;
+                        }
+                    }
+
+                    return {
+                        id: `profession_skill_${index}`,
+                        name,
+                        encodedValue: [ACTION_TYPE.professionSkill, actor.id, tokenId, skill.skillName].join(this.delimiter)
+                    }
+                });
             this.addActions(actions, parent);
         }
 
@@ -134,7 +173,6 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     return {
                         id: item.id,
                         name,
-                        tooltip: item.system.effect,
                         img: Utils.getImage(item),
                         encodedValue: [ACTION_TYPE.castMagic, actor.id, tokenId, item.id].join(this.delimiter)
                     }

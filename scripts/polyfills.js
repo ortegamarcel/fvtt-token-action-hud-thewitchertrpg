@@ -33,3 +33,11 @@ Array.prototype.cost = function () {
   }
   return Math.ceil(total);
 }
+
+// Own polyfills
+String.prototype.toCapitalCase = function() {
+    const words = this.split(' ');
+    return words
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+}
