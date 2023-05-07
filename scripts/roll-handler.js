@@ -18,11 +18,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const args = payload.slice(3);
 
             const actor = Utils.getActor(actorId, tokenId);
-            let itemId;
+            let itemId = args?.[0];
                 
             switch (action) {
                 case ACTION_TYPE.attack:
-                    itemId = args[0];
                     actor.sheet._onItemRoll.call(actor.sheet, null, itemId);
                     break;
                 case ACTION_TYPE.defense:
@@ -33,8 +32,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     const skillNum = Number(args[1]);
                     actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
                     break;
+                case ACTION_TYPE.professionSkill:
+                    const event = this._createProfessionSkillEvent(actor, itemId);
+                    actor.sheet._onProfessionRoll.call(actor.sheet, event);
+                    break;
                 case ACTION_TYPE.castMagic:
-                    itemId = args[0];
                     // right click
                     if (event.which == 3) {
                         this._showDescription(actor, itemId, () => {
@@ -79,6 +81,26 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 content: `<p>${item.system.description || item.system.effect}</p>`,
                 buttons
             }).render(true);
+        }
+
+        _createProfessionSkillEvent(actor, skillName) {
+            const profession = actor.items.find(item => item.type == 'profession');
+            const professionSkills = Utils.getAllProfessionSkills(profession);
+            const skill = professionSkills.find(skill => skill.skillName == skillName);
+            if (skill) {
+                return {
+                    currentTarget: {
+                        closest: () => ({
+                            dataset: {
+                                stat: skill.stat,
+                                level: skill.level,
+                                name: skill.skillName,
+                                effet: skill.definition
+                            }
+                        })
+                    }
+                };
+            }
         }
     }
 });

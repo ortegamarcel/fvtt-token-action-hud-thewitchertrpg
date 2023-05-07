@@ -39,6 +39,14 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 ]
             },
             {
+                nestId: 'profession',
+                id: 'profession',
+                name: coreModule.api.Utils.i18n('TAH_WITCHER.professionSkills'),
+                groups: [
+                    { ...groups.professionSkills, nestId: 'profession_skills' }
+                ]
+            },
+            {
                 nestId: 'magic',
                 id: 'magic',
                 name: coreModule.api.Utils.i18n('TAH_WITCHER.magic'),

@@ -3,6 +3,7 @@
         "combat": "Combat",
         "attack": "Attack",
         "magic": "Magic",
+        "professionSkills": "Profession Skills",
         "Settings": {
             "sortSkillsAlphabetically": "Sort Skills",
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",
