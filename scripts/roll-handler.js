@@ -28,6 +28,21 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 case ACTION_TYPE.defense:
                     actor.sheet._onDefenceRoll.call(actor.sheet);
                     break;
+                case ACTION_TYPE.initiative:
+                    actor.rollInitiative({ createCombatants: true, rerollInitiative: true });
+                    break;
+                case ACTION_TYPE.save:
+                    actor.sheet._onDeathSaveRoll.call(actor.sheet);
+                    break;
+                case ACTION_TYPE.critOrFumble:
+                    actor.sheet._onCritRoll.call(actor.sheet);
+                    break;
+                case ACTION_TYPE.recover:
+                    const rec = actor.system.coreStats.rec.current;
+                    const currentSta = actor.system.derivedStats.sta.value;
+                    const maxSta = actor.system.derivedStats.sta.max;
+                    actor.system.derivedStats.sta.value = Math.min(currentSta + rec, maxSta);
+                    break;
                 case ACTION_TYPE.skill:
                     const statNum = Number(args[0]);
                     const skillNum = Number(args[1]);

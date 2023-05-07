@@ -21,6 +21,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
             this._getAttacks(actor, token.id, { id: GROUP.attack.id, type: 'system' });
             this._getDefense(actor, token.id, { id: GROUP.defense.id, type: 'system' });
+            this._getSpecialActions(actor, token.id, { id: GROUP.specialActions.id, type: 'system' });
             if (Utils.getSetting('showSkillCategories')) {
                 this._getSkills(SKILL.int, actor, token.id, { id: GROUP.intSkills.id, type: 'system' });
                 this._getSkills(SKILL.ref, actor, token.id, { id: GROUP.refSkills.id, type: 'system' });
@@ -82,6 +83,32 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 icon1: ICON.defense
             };
             this.addActions([action], parent);
+        }
+
+        _getSpecialActions(actor, tokenId, parent) {
+            const initiative = {
+                id: 'initiative',
+                name: Utils.i18n('WITCHER.Actor.Initiative'),
+                encodedValue: [ACTION_TYPE.initiative, actor.id, tokenId].join(this.delimiter)
+            };
+            const save = {
+                id: 'save',
+                name: Utils.i18n('WITCHER.Actor.SavingThrow'),
+                encodedValue: [ACTION_TYPE.save, actor.id, tokenId].join(this.delimiter)
+            };
+            const critOrFumble = {
+                id: 'critorfumble',
+                name: Utils.i18n('WITCHER.Actor.Crit/Fumble'),
+                encodedValue: [ACTION_TYPE.critOrFumble, actor.id, tokenId].join(this.delimiter)
+            };
+            const recover = {
+                id: 'recover',
+                name: Utils.i18n('TAH_WITCHER.recover'),
+                encodedValue: [ACTION_TYPE.recover, actor.id, tokenId].join(this.delimiter)
+            };
+            const actions = [initiative, save, critOrFumble, recover]
+                .sort((a1, a2) => a1.name.localeCompare(a2.name));
+            this.addActions(actions, parent);
         }
 
         _getSkills(skillSet, actor, tokenId, parent) {

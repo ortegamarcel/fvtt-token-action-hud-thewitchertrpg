@@ -4,6 +4,8 @@
         "attack": "Attack",
         "magic": "Magic",
         "professionSkills": "Profession Skills",
+        "specialActions": "Special Actions",
+        "recover": "Recover Stamina",
         "Settings": {
             "sortSkillsAlphabetically": "Sort Skills",
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",

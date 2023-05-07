@@ -30,6 +30,10 @@ export const ICON = {
 export const ACTION_TYPE = {
     attack: 'attack',
     defense: 'defense',
+    initiative: 'initiative',
+    save: 'save',
+    critOrFumble: 'crit_or_fumble',
+    recover: 'recover',
     skill: 'skill',
     professionSkill: 'profession_skill',
     castMagic: 'castMagic',
@@ -39,6 +43,7 @@ export const GROUP = {
     // combat
     attack: { id: 'attack', name: 'TAH_WITCHER.attack', type: 'system' },
     defense: { id: 'defense', name: 'WITCHER.Actor.Defense', type: 'system' },
+    specialActions: { id: 'special-actions', name: 'TAH_WITCHER.specialActions', type: 'system' },
 
     // skills
     allSkills: { id: 'all_skills', name: 'WITCHER.Monster.SkillTab', type: 'system' },
