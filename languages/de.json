@@ -6,6 +6,8 @@
         "professionSkills": "Berufsfertigkeiten",
         "specialActions": "Besondere Aktionen",
         "recover": "Ausdauer Erholen",
+        "gainedSta": "Du hast Ausdauer regeneriert.",
+        "fullSta": "Du hast bereits volle Ausdauer.",
         "Settings": {
             "sortSkillsAlphabetically": "Fertigkeiten sortieren",
             "sortSkillsAlphabeticallyHint": "Wenn angekreuzt, werden alle Fertigkeiten innerhalb ihrer Kategorie von A nach Z sortiert.",

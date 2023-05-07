@@ -6,6 +6,8 @@
         "professionSkills": "Profession Skills",
         "specialActions": "Special Actions",
         "recover": "Recover Stamina",
+        "gainedSta": "You have gained stamina.",
+        "fullSta": "You already have max stamina.",
         "Settings": {
             "sortSkillsAlphabetically": "Sort Skills",
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",

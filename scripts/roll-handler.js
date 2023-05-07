@@ -41,7 +41,12 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     const rec = actor.system.coreStats.rec.current;
                     const currentSta = actor.system.derivedStats.sta.value;
                     const maxSta = actor.system.derivedStats.sta.max;
-                    actor.system.derivedStats.sta.value = Math.min(currentSta + rec, maxSta);
+                    if (maxSta == currentSta) {
+                        ui.notifications.warn(Utils.i18n('TAH_WITCHER.fullSta'));
+                    } else {
+                        actor.system.derivedStats.sta.value = Math.min(currentSta + rec, maxSta);
+                        ui.notifications.info(Utils.i18n("TAH_WITCHER.gainedSta"));
+                    }
                     break;
                 case ACTION_TYPE.skill:
                     const statNum = Number(args[0]);
