@@ -33,8 +33,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
                     break;
                 case ACTION_TYPE.professionSkill:
-                    const event = this._createProfessionSkillEvent(actor, itemId);
-                    actor.sheet._onProfessionRoll.call(actor.sheet, event);
+                    const _event = this._createProfessionSkillEvent(actor, itemId);
+                    actor.sheet._onProfessionRoll.call(actor.sheet, _event);
                     break;
                 case ACTION_TYPE.castMagic:
                     // right click
