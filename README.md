@@ -1,6 +1,14 @@
 # Token Action HUD TheWitcherTRPG
 Token Action HUD is a repositionable HUD of actions for a selected token.
 
+# Skills do not work on TheWitcherTRPG v0.96
+The [Witcher-system](https://github.com/AnthonyMonette/TheWitcherTRPG) v0.96 doesn't expose the necessary function to do skill rolls. That's why skills currently don't work.
+
+If you don't want to wait for a fix, you can use my [alpha version](https://github.com/ortegamarcel/TheWitcherTRPG/wiki) of the system. Here is the [installation guide](https://github.com/ortegamarcel/TheWitcherTRPG/wiki/Installation-Guide). 
+
+Alternatively, you can manually fix it in the code yourself. Down below is a [guide](https://github.com/ortegamarcel/fvtt-token-action-hud-thewitchertrpg#fix-skills-manually) on how to do that.
+
+
 <!-- TODO: Include gif of actions hud -->
 
 # Features
@@ -31,10 +39,8 @@ Token Action HUD is a repositionable HUD of actions for a selected token.
 ## Recommended Modules
 Token Action HUD uses either the [Color Picker](https://foundryvtt.com/packages/color-picker), [libThemer](https://foundryvtt.com/packages/lib-themer) or [VTTColorSettings](https://foundryvtt.com/packages/colorsettings) library modules for its color picker settings. Only one is required.
 
-# Known issues
-**The Skills HUD doesn't work on TheWitcherTRPG v0.96**. The [Witcher-system](https://github.com/AnthonyMonette/TheWitcherTRPG) v0.96 currently doesn't expose the necessary function to do skill rolls. That's why skills currently don't work. If you don't want to wait for a fix, you can use [my Alpha version](https://github.com/ortegamarcel/TheWitcherTRPG/wiki/Installation-Guide) of the system. This is a fork from the original that already includes a fix and some other features. You can see all the differences in the [here](https://github.com/ortegamarcel/TheWitcherTRPG/wiki).
-
-Alternatively you can paste the following code into **row 2635** of `<foundry_path>\Data\systems\TheWitcherTRPG\module\sheets\WitcherActorSheet.js` **before the `}`**.
+# Fix Skills manually
+Instead of using my [latest alpha version](https://github.com/ortegamarcel/TheWitcherTRPG/wiki), you can paste the following code into **row 2635** of `<foundry_path>\Data\systems\TheWitcherTRPG\module\sheets\WitcherActorSheet.js` **before the `}`**.
 
 ```javascript
 async _onSkillRoll(statNum, skillNum) {
