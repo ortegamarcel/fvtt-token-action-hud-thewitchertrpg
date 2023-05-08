@@ -46,4 +46,22 @@ export const registerSettings = function() {
             basevalue: Utils.i18n('TAH_WITCHER.Settings.skillSuffixBasevalue')
         }
     });
+
+    game.settings.register(MODULE.ID, 'showMagicStaCost', {
+        name: Utils.i18n('TAH_WITCHER.Settings.showMagicStaCost'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.showMagicStaCostHint'),
+        scope: 'client',
+        config: true,
+        type: Boolean,
+        default: true
+    });
+
+    game.settings.register(MODULE.ID, 'magicVarStaCostLabel', {
+        name: Utils.i18n('TAH_WITCHER.Settings.magicVarStaCostLabel'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.magicVarStaCostLabelHint'),
+        scope: 'client',
+        config: true,
+        type: String,
+        default: 'X'
+    });
 }

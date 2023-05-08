@@ -20,7 +20,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 name: coreModule.api.Utils.i18n('TAH_WITCHER.combat'),
                 groups: [
                     { ...groups.attack, nestId: 'combat_attack' },
-                    { ...groups.defense, nestId: 'combat_defense' }
+                    { ...groups.defense, nestId: 'combat_defense' },
+                    { ...groups.specialActions, nestId: 'combat_special-actions' }
                 ]
             },
             {
@@ -36,6 +37,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     { ...groups.empSkills, nestId: 'skills_emp' },
                     { ...groups.craSkills, nestId: 'skills_cra' },
                     { ...groups.willSkills, nestId: 'skills_will' },
+                    { ...groups.test, nestId: 'skills_test' },
+                ]
+            },
+            {
+                nestId: 'profession',
+                id: 'profession',
+                name: coreModule.api.Utils.i18n('TAH_WITCHER.professionSkills'),
+                groups: [
+                    { ...groups.professionSkills, nestId: 'profession_skills' }
                 ]
             },
             {
@@ -43,6 +53,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'magic',
                 name: coreModule.api.Utils.i18n('TAH_WITCHER.magic'),
                 groups: [
+                    { ...groups.spells, nestId: 'magic_spells' },
+                    { ...groups.invocations, nestId: 'magic_invocations' },
+                    { ...groups.signs, nestId: 'magic_signs' },
+                    { ...groups.rituals, nestId: 'magic_rituals' },
+                    { ...groups.hexes, nestId: 'magic_hexes' },
                 ]
             }
         ],

@@ -3,6 +3,11 @@
         "combat": "Combat",
         "attack": "Attack",
         "magic": "Magic",
+        "professionSkills": "Profession Skills",
+        "specialActions": "Special Actions",
+        "recover": "Recover Stamina",
+        "gainedSta": "You have gained stamina.",
+        "fullSta": "You already have max stamina.",
         "Settings": {
             "sortSkillsAlphabetically": "Sort Skills",
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",
@@ -16,7 +21,11 @@
             "skillSuffix": "Skill Suffix",
             "skillSuffixHint": "The type of suffix that should be shown. \"Skillpoints\" - The actual number of points you have spent for a skill + all modifiers. \"Basevalue\" - The Skillpoints + current stat value.",
             "skillSuffixSkillpoints": "Skillpoints",
-            "skillSuffixBasevalue": "Basevalue"
+            "skillSuffixBasevalue": "Basevalue",
+            "showMagicStaCost": "Show STA-Cost",
+            "showMagicStaCostHint": "If checked, the stamina cost will be shown behind each spell.",
+            "magicVarStaCostLabel": "Variable STA-Cost Label",
+            "magicVarStaCostLabelHint": "If STA-Cost are shown, this is the label that is shown behind spells with variable cost. If you leave this empty, nothing will be shown."
         }
     }
 }

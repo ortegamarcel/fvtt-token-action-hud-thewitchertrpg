@@ -15,12 +15,13 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
             const token = this.token;
             const actor = this.actor;
-            if (!token || !actor || actor.type == 'loot') {
+            if (!token || !actor || (actor.type != 'character' && actor.type != 'monster')) {
                 return;
             }
 
             this._getAttacks(actor, token.id, { id: GROUP.attack.id, type: 'system' });
             this._getDefense(actor, token.id, { id: GROUP.defense.id, type: 'system' });
+            this._getSpecialActions(actor, token.id, { id: GROUP.specialActions.id, type: 'system' });
             if (Utils.getSetting('showSkillCategories')) {
                 this._getSkills(SKILL.int, actor, token.id, { id: GROUP.intSkills.id, type: 'system' });
                 this._getSkills(SKILL.ref, actor, token.id, { id: GROUP.refSkills.id, type: 'system' });
@@ -40,6 +41,12 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     ...SKILL.will
                 }, actor, token.id, { id: GROUP.allSkills.id, type: 'system' });
             }
+            this._getProfessionSkills(actor, token.id, { id: GROUP.professionSkills.id, type: 'system' });
+            this._getMagic('Spells', actor, token.id, { id: GROUP.spells.id, type: 'system' });
+            this._getMagic('Invocations', actor, token.id, { id: GROUP.invocations.id, type: 'system' });
+            this._getMagic('Witcher', actor, token.id, { id: GROUP.signs.id, type: 'system' });
+            this._getMagic('Rituals', actor, token.id, { id: GROUP.rituals.id, type: 'system' });
+            this._getMagic('Hexes', actor, token.id, { id: GROUP.hexes.id, type: 'system' });
 
             
             //if (settings.get("showHudTitle")) result.hudTitle = token.name;
@@ -78,6 +85,32 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             this.addActions([action], parent);
         }
 
+        _getSpecialActions(actor, tokenId, parent) {
+            const initiative = {
+                id: 'initiative',
+                name: Utils.i18n('WITCHER.Actor.Initiative'),
+                encodedValue: [ACTION_TYPE.initiative, actor.id, tokenId].join(this.delimiter)
+            };
+            const save = {
+                id: 'save',
+                name: Utils.i18n('WITCHER.Actor.SavingThrow'),
+                encodedValue: [ACTION_TYPE.save, actor.id, tokenId].join(this.delimiter)
+            };
+            const critOrFumble = {
+                id: 'critorfumble',
+                name: Utils.i18n('WITCHER.Actor.Crit/Fumble'),
+                encodedValue: [ACTION_TYPE.critOrFumble, actor.id, tokenId].join(this.delimiter)
+            };
+            const recover = {
+                id: 'recover',
+                name: Utils.i18n('TAH_WITCHER.recover'),
+                encodedValue: [ACTION_TYPE.recover, actor.id, tokenId].join(this.delimiter)
+            };
+            const actions = [initiative, save, critOrFumble, recover]
+                .sort((a1, a2) => a1.name.localeCompare(a2.name));
+            this.addActions(actions, parent);
+        }
+
         _getSkills(skillSet, actor, tokenId, parent) {
             let actions = Object.entries(skillSet)
                 .filter(([id, skill]) => skill.active)
@@ -94,7 +127,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                         if (showSuffix == 'always' || skillpoints > 0) {
                             let statValue = 0;
                             if (Utils.getSetting('skillSuffix') == 'basevalue') {
-                                statValue = actor.system.stats[skill.stat].current
+                                statValue = actor.system.stats[skill.stat].current;
                             }
                             name += ` ${skillpoints + statValue}`;
                         }
@@ -107,6 +140,70 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 actions = actions.sort((action1, action2) => action1.name.localeCompare(action2.name));
             }
 
+            this.addActions(actions, parent);
+        }
+
+        _getProfessionSkills(actor, tokenId, parent) {
+            const profession = actor.items.find(item => item.type == 'profession');
+            if (!profession) {
+                console.log('TAH_WITCHER: No profession');
+                return;
+            }
+            const professionSkills = Utils.getAllProfessionSkills(profession);
+            if (!professionSkills) {
+                console.log('TAH_WITCHER: No profession skills');
+                return;
+            }
+            const actions = professionSkills
+                .filter(({ level }) => level != null)
+                .map((skill, index) => {
+                    let name = skill.skillName.toCapitalCase();
+
+                    // Add suffix according on settings
+                    const showSuffix = Utils.getSetting('showSkillSuffix');
+                    if (showSuffix != 'never') {
+                        const skillpoints = Number(skill.level);
+                        if (showSuffix == 'always' || skillpoints > 0) {
+                            let statValue = 0;
+                            if (Utils.getSetting('skillSuffix') == 'basevalue') {
+                                statValue = actor.system.stats[skill.stat].current;
+                            }
+                            name += ` ${skillpoints + statValue}`;
+                        }
+                    }
+
+                    return {
+                        id: `profession_skill_${index}`,
+                        name,
+                        encodedValue: [ACTION_TYPE.professionSkill, actor.id, tokenId, skill.skillName].join(this.delimiter)
+                    }
+                });
+            this.addActions(actions, parent);
+        }
+
+        _getMagic(type, actor, tokenId, parent) {
+            const actions = actor.items
+                .filter(item => item.type == 'spell' && item.system.class == type)
+                .map(item => {
+                    let name = item.name;
+                    const showCost = Utils.getSetting('showMagicStaCost');
+                    if (showCost) {
+                        if (item.system.staminaIsVar) {
+                            const varCostLabel = Utils.getSetting('magicVarStaCostLabel');
+                            if (varCostLabel) {
+                                name += ` (${Utils.getSetting('magicVarStaCostLabel')})`;
+                            }
+                        } else {
+                            name += ` (${item.system.stamina})`;
+                        }
+                    }
+                    return {
+                        id: item.id,
+                        name,
+                        img: Utils.getImage(item),
+                        encodedValue: [ACTION_TYPE.castMagic, actor.id, tokenId, item.id].join(this.delimiter)
+                    }
+                });
             this.addActions(actions, parent);
         }
     }

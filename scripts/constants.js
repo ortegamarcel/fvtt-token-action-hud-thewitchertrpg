@@ -30,12 +30,22 @@ export const ICON = {
 export const ACTION_TYPE = {
     attack: 'attack',
     defense: 'defense',
-    skill: 'skill'
+    initiative: 'initiative',
+    save: 'save',
+    critOrFumble: 'crit_or_fumble',
+    recover: 'recover',
+    skill: 'skill',
+    professionSkill: 'profession_skill',
+    castMagic: 'castMagic',
 };
 
 export const GROUP = {
+    // combat
     attack: { id: 'attack', name: 'TAH_WITCHER.attack', type: 'system' },
     defense: { id: 'defense', name: 'WITCHER.Actor.Defense', type: 'system' },
+    specialActions: { id: 'special-actions', name: 'TAH_WITCHER.specialActions', type: 'system' },
+
+    // skills
     allSkills: { id: 'all_skills', name: 'WITCHER.Monster.SkillTab', type: 'system' },
     intSkills: { id: 'int_skills', name: 'WITCHER.StInt', type: 'system' },
     refSkills: { id: 'ref_skills', name: 'WITCHER.StRef', type: 'system' },
@@ -43,7 +53,17 @@ export const GROUP = {
     bodySkills: { id: 'body_skills', name: 'WITCHER.StBody', type: 'system' },
     empSkills: { id: 'emp_skills', name: 'WITCHER.StEmp', type: 'system' },
     craSkills: { id: 'cra_skills', name: 'WITCHER.StCra', type: 'system' },
-    willSkills: { id: 'will_skills', name: 'WITCHER.StWill', type: 'system' }
+    willSkills: { id: 'will_skills', name: 'WITCHER.StWill', type: 'system' },
+
+    // profession skills
+    professionSkills: { id: 'profession_skills', name: 'TAH_WITCHER.professionSkills', type: 'system' },
+
+    // magic
+    spells: { id: 'spells', name: 'WITCHER.Spell.Spells', type: 'system' },
+    invocations: { id: 'invocations', name: 'WITCHER.Spell.Invocations', type: 'system' },
+    signs: { id: 'signs', name: 'WITCHER.Spell.Witcher', type: 'system' },
+    rituals: { id: 'rituals', name: 'WITCHER.Spell.Rituals', type: 'system' },
+    hexes: { id: 'hexes', name: 'WITCHER.Spell.Hexes', type: 'system' },
 };
 
 export const SKILL = {
