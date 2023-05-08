@@ -164,11 +164,14 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     if (showSuffix != 'never') {
                         const skillpoints = Number(skill.level);
                         if (showSuffix == 'always' || skillpoints > 0) {
-                            let statValue = 0;
                             if (Utils.getSetting('skillSuffix') == 'basevalue') {
-                                statValue = actor.system.stats[skill.stat].current;
+                                if (skill.stat != 'none') {
+                                    const statValue = actor.system.stats[skill.stat].current;
+                                    name += ` ${skillpoints + statValue}`;
+                                }
+                            } else {
+                                name += ` ${skillpoints}`;
                             }
-                            name += ` ${skillpoints + statValue}`;
                         }
                     }
 
