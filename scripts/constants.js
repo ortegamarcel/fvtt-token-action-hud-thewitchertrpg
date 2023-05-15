@@ -89,7 +89,7 @@ export const SKILL = {
         riding: { stat: 'ref', active: true, name: 'WITCHER.SkRefRiding', statNum: 1, skillNum: 3 },
         sailing: { stat: 'ref', active: false, name: 'WITCHER.SkRefSailing', statNum: 1, skillNum: 4 },
         smallblades: { stat: 'ref', active: false, name: 'WITCHER.SkRefSmall', statNum: 1, skillNum: 5 },
-        stattspear: { stat: 'ref', active: false, name: 'WITCHER.SkRefStaff', statNum: 1, skillNum: 6 },
+        staffspear: { stat: 'ref', active: false, name: 'WITCHER.SkRefStaff', statNum: 1, skillNum: 6 },
         swordsmanship: { stat: 'ref', active: false, name: 'WITCHER.SkRefSwordsmanship', statNum: 1, skillNum: 7 },
     },
     dex: {

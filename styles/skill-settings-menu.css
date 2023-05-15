@@ -17,7 +17,7 @@
     align-items: center;
 }
 
-.skill-settings-footer > div {
+.skill-settings-footer {
     display: flex;
     flex-wrap: nowrap;
     column-gap: 5px;

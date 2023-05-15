@@ -26,11 +26,13 @@
             "showMagicStaCostHint": "Wenn angekreuzt, werden hinter allen Zaubersprüchen die Ausdauer Kosten angezeigt.",
             "magicVarStaCostLabel": "Zeichen für variable AUS-Kosten",
             "magicVarStaCostLabelHint": "Wenn AUS-Kosten angezeigt werden, ist das die Zeichenkette die hinter Zaubern mit variablen Kosten angezeigt wird. Lasse es leer, damit nichts angezeigt wird.",
-            "skillSettings": "Fertigkeiten Konfiguration",
+            "skillSettings": "Fertigkeiten Anzeige",
             "skillSettingsHint": "Wähle welche Fertigkeiten angezeigt werden sollen.",
-            "skillSettingsLabel": "Öffne Fertigkeiten Konfiguration",
+            "skillSettingsLabel": "Fertigkeiten konfigurieren",
             "reset": "Zurücksetzen",
-            "save": "Speichern"
+            "save": "Speichern",
+            "deselectAll": "Alle Abwählen",
+            "selectAll": "Alle Auswählen"
         }
     }
 }

@@ -26,11 +26,13 @@
             "showMagicStaCostHint": "If checked, the stamina cost will be shown behind each spell.",
             "magicVarStaCostLabel": "Variable STA-Cost Label",
             "magicVarStaCostLabelHint": "If STA-Cost are shown, this is the label that is shown behind spells with variable cost. If you leave this empty, nothing will be shown.",
-            "skillSettings": "Skill Config",
+            "skillSettings": "Display Skills",
             "skillSettingsHint": "Select which skills should be shown.",
-            "skillSettingsLabel": "Open Skill Config",
+            "skillSettingsLabel": "Skill Configuration",
             "reset": "Reset",
-            "save": "Save"
+            "save": "Save",
+            "deselectAll": "Deselect All",
+            "selectAll": "Select All"
         }
     }
 }

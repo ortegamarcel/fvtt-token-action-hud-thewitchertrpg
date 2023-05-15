@@ -20,7 +20,7 @@ export const registerSettings = function() {
         name: Utils.i18n('TAH_WITCHER.Settings.skillSettings'),
         label: Utils.i18n('TAH_WITCHER.Settings.skillSettingsLabel'),
         hint: Utils.i18n('TAH_WITCHER.Settings.skillSettingsHint'),
-        icon: "fas fa-bars",
+        icon: "fas fa-eye-low-vision",
         type: SkillSettingsMenu,
         restricted: false
     });

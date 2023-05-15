@@ -8,7 +8,7 @@ export default class SkillSettingsMenu extends FormApplication {
             width: 662,
             height: 'auto',
             closeOnSubmit: true
-        })
+        });
     }
 
     constructor (...args) {
@@ -19,6 +19,8 @@ export default class SkillSettingsMenu extends FormApplication {
         super.activateListeners(html);
 
         html.find('#tahw-skill-settings-reset').bind('click', this._reset.bind(this));
+        html.find('#tahw-skill-settings-deselect-all').bind('click', this._deselectAll.bind(this));
+        html.find('#tahw-skill-settings-select-all').bind('click', this._selectAll.bind(this));
     }
 
     getData() {
@@ -27,6 +29,11 @@ export default class SkillSettingsMenu extends FormApplication {
             skills: skillSettings
         };
         return data;
+    }
+
+    _onChangeInput(event) {
+        const formData = this._getSubmitData();
+        this._updateObject(event, formData);
     }
 
     _updateObject(event, formData) {
@@ -40,11 +47,27 @@ export default class SkillSettingsMenu extends FormApplication {
         game.settings.set(MODULE.ID, 'skillSettings', skillData);
     }
 
-    _mergeFormData() {
+    _deselectAll() {
+        this._setAll(false);
+    }
 
+    _selectAll() {
+        this._setAll(true);
+    }
+
+    _setAll(active) {
+        const skillData = this.getData().skills;
+        Object.entries(skillData).forEach(([stat, skills]) => {
+            Object.keys(skills).forEach(skill => {
+                skillData[stat][skill].active = active;
+            });
+        });
+        game.settings.set(MODULE.ID, 'skillSettings', skillData);
+        this.render(true);
     }
 
     _reset() {
         game.settings.set(MODULE.ID, 'skillSettings', SKILL);
+        this.render(true);
     }
 }

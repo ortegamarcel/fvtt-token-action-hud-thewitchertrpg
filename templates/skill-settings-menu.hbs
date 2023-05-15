@@ -66,9 +66,17 @@
     </div>
 
     <footer class="skill-settings-footer">
-        <div>
-            <button id="tahw-skill-settings-reset" type="button">{{localize "TAH_WITCHER.Settings.reset"}}</button>
-            <button type="submit">{{localize "TAH_WITCHER.Settings.save"}}</button>
-        </div>
+            <button id="tahw-skill-settings-reset" type="button">
+                <i class="fa fa-rotate-left"></i>
+                {{localize "TAH_WITCHER.Settings.reset"}}
+            </button>
+            <button type="button" id="tahw-skill-settings-deselect-all">
+                <i class="fa fa-square"></i>
+                {{localize "TAH_WITCHER.Settings.deselectAll"}}
+            </button>
+            <button type="button" id="tahw-skill-settings-select-all">
+                <i class="fa fa-square-check"></i>
+                {{localize "TAH_WITCHER.Settings.selectAll"}}
+            </button>
     </footer>
 </form>
