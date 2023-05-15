@@ -15,7 +15,7 @@
         "consumeAlchemicalItem": "Verwenden",
         "consumePotion": "Trinken",
         "consumeDecoction": "Trinken",
-        "consumeFoodOrDring": "Essen/Trinken",
+        "consumeFoodOrDrink": "Verzehren",
         "noDetailsAvailable": "Zu diesem Gegenstand sind keine detaillierten Information vorhanden.",
         "Settings": {
             "sortSkillsAlphabetically": "Fertigkeiten sortieren",
@@ -45,16 +45,12 @@
             "showToAll": "Zeige Verbrauchsgegenstände allen an",
             "showToAllHint": "Wenn angekreuzt, wird allen eine Chat Nachricht angezeigt, wenn jemand einen Verbrauchsgegenstand konsumiert. Ansonsten, kann es nur der Verbraucher und der Spielleiter sehen."
         },
-        "Notifications": {
-            "removedItem": "'%itemName' wurde aus deinem Inventar entfernt. Du hast noch %itemQuantity Stück übrig.",
-            "removedLastItem": "Der letzte '%itemName'-Gegenstand wurde aus deinem Inventar entfernt."
-        },
         "Chat": {
             "actorConsumedOil": "Ich habe ein Klingenöl auf meine Waffe aufgetragen!",
             "actorConsumedAlchemicalItem": "Ich habe einen alchemistischen Gegenstand verwendet!",
             "actorConsumedPotion": "Ich habe einen Hexer-Trank getrunken!",
             "actorConsumedDecoction": "Ich habe eine Hexer-Mixtur getrunken!",
-            "actorConsumedFoodOrDrink": "Ich habe etwas gegessen/getrunken!"
+            "actorConsumedFoodOrDrink": "Ich habe etwas verzehrt!"
         }
     }
 }

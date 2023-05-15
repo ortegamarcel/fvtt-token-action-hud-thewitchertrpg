@@ -110,7 +110,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const isAlchemicalItem = item.system.type == 'alchemical-item';
             const isPotion = item.system.type == 'potion';
             const isDecoction = item.system.type == 'decoction';
-            const isFoodOrDring = false;
+            const isFoodOrDring = item.system.type == 'food-drink';
             
             let verb;
             if (isOil) {
@@ -130,16 +130,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 label: verb,
                 callback: async () => {
                     const quantity = item.system.quantity;
-                    let message;
                     if (quantity > 1) {
                         await item.update({ system: { quantity: quantity - 1 } });
-                        message = Utils.i18n("TAH_WITCHER.Notifications.removedItem");
                     } else {
                         await actor.deleteEmbeddedDocuments('Item', [item.id]);
-                        message = Utils.i18n("TAH_WITCHER.Notifications.removedLastItem");
                     }
-                    message = message.replace('%itemName', item.name).replace('%itemQuantity', quantity - 1);
-                    ui.notifications.info(message);
 
                     let title;
                     if (isOil) {

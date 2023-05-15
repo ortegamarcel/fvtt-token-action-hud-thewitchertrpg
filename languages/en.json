@@ -13,9 +13,9 @@
         "consumables": "Inventory",
         "consumeOil": "Use",
         "consumeAlchemicalItem": "Use",
-        "consumePotion": "Drink",
-        "consumeDecoction": "Drink",
-        "consumeFoodOrDring": "Eat/Drink",
+        "consumePotion": "Consume",
+        "consumeDecoction": "Consume",
+        "consumeFoodOrDrink": "Consume",
         "noDetailsAvailable": "There are no detailed information available for this item.",
         "Settings": {
             "sortSkillsAlphabetically": "Sort Skills",
@@ -45,16 +45,12 @@
             "showToAll": "Show Consumables to everyone",
             "showToAllHint": "If checked, everyone will be shown a chat message when someone consumes a item. Otherwise, only the consumer and the gamemaster can see it."
         },
-        "Notifications": {
-            "removedItem": "One '%itemName' was removed from your inventory. You have %itemQuantity left.",
-            "removedLastItem": "The last '%itemName' was removed from your inventory."
-        },
         "Chat": {
             "actorConsumedOil": "I have applied a blade coating to my weapon!",
             "actorConsumedAlchemicalItem": "I have used an alchemical item!",
             "actorConsumedPotion": "I have consumed a Witcher potion!",
             "actorConsumedDecoction": "I have consumed a Witcher decoction!",
-            "actorConsumedFoodOrDrink": "I have eaten/drank something!"
+            "actorConsumedFoodOrDrink": "I have consumed something!"
         }
     }
 }

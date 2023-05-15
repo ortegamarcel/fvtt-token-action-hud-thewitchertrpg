@@ -66,7 +66,8 @@ export const GROUP = {
     rituals: { id: 'rituals', name: 'WITCHER.Spell.Rituals', type: 'system' },
     hexes: { id: 'hexes', name: 'WITCHER.Spell.Hexes', type: 'system' },
 
-    // consumables
+    // inventory
+    foodAndDrinks: { id: 'food-and-drinks', name: 'WITCHER.Valuable.Food&Drinks', type: 'system' },
     alchemicalItems: { id: 'alechmical-items', name: 'WITCHER.Inventory.AlchemicalItems', type: 'system' },
     potions: { id: 'potions', name: 'TAH_WITCHER.potions', type: 'system' },
     decoctions: { id: 'decoctions', name: 'TAH_WITCHER.decoctions', type: 'system' },

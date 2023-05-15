@@ -48,6 +48,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             this._getMagic('Witcher', actor, token.id, { id: GROUP.signs.id, type: 'system' });
             this._getMagic('Rituals', actor, token.id, { id: GROUP.rituals.id, type: 'system' });
             this._getMagic('Hexes', actor, token.id, { id: GROUP.hexes.id, type: 'system' });
+            this._getItem('valuable', 'food-drink', actor, token.id, { id: GROUP.foodAndDrinks.id, type: 'system' });
             this._getItem('valuable', 'alchemical-item', actor, token.id, { id: GROUP.alchemicalItems.id, type: 'system' });
             this._getItem('alchemical', 'oil', actor, token.id, { id: GROUP.oils.id, type: 'system' });
             this._getItem('alchemical', 'potion', actor, token.id, { id: GROUP.potions.id, type: 'system' });

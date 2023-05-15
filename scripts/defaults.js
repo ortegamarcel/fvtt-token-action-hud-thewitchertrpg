@@ -65,6 +65,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'consumables',
                 name: coreModule.api.Utils.i18n('TAH_WITCHER.consumables'),
                 groups: [
+                    { ...groups.foodAndDrinks, nestId: 'consumables_food-and-drinks' },
                     { ...groups.alchemicalItems, nestId: 'consumables_alchemical-items' },
                     { ...groups.oils, nestId: 'consumables_oils' },
                     { ...groups.potions, nestId: 'consumables_potions' },
