@@ -18,13 +18,13 @@ Alternatively, you can manually fix it in the code yourself. Down below is a [gu
 
 # Installation
 
-<!-- ## Method 1
+## Method 1
 1. On Foundry VTT's **Configuration and Setup** screen, go to **Add-on Modules**
 2. Click **Install Module**
 3. Search for **Token Action HUD TheWitcherTRPG** 
-4. Click **Install** next to the module listing -->
+4. Click **Install** next to the module listing
 
-## Method 1
+## Method 2
 1. On Foundry VTT's **Configuration and Setup** screen, go to **Add-on Modules**
 2. Click **Install Module**
 3. In the Manifest URL field, paste: `https://github.com/ortegamarcel/fvtt-token-action-hud-thewitchertrpg/releases/latest/download/module.json`
