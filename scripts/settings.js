@@ -22,11 +22,11 @@ export const registerSettings = function() {
         hint: Utils.i18n('TAH_WITCHER.Settings.skillSettingsHint'),
         icon: "fas fa-bars",
         type: SkillSettingsMenu,
-        restricted: true
+        restricted: false
     });
 
     game.settings.register(MODULE.ID, 'skillSettings', {
-        scope: 'world',
+        scope: 'client',
         config: false,
         type: Object,
         default: SKILL
