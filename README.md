@@ -14,7 +14,6 @@ Alternatively, you can manually fix it in the code yourself. Down below is a [gu
 - Make rolls directly from the HUD instead of opening your character sheet.
 - Use profession skills and spells from the HUD or right-click them to see an description.
 - Move the HUD and choose to expand the menus up or down.
-- Unlock the HUD to customise categories and subcategories per user, and actions per actor.
 - Many customization options for Skills, Professions Skills and Magic
 
 # Installation
