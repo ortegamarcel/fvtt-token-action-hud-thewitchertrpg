@@ -14,18 +14,17 @@ Alternatively, you can manually fix it in the code yourself. Down below is a [gu
 - Make rolls directly from the HUD instead of opening your character sheet.
 - Use profession skills and spells from the HUD or right-click them to see an description.
 - Move the HUD and choose to expand the menus up or down.
-- Unlock the HUD to customise categories and subcategories per user, and actions per actor.
 - Many customization options for Skills, Professions Skills and Magic
 
 # Installation
 
-<!-- ## Method 1
+## Method 1
 1. On Foundry VTT's **Configuration and Setup** screen, go to **Add-on Modules**
 2. Click **Install Module**
 3. Search for **Token Action HUD TheWitcherTRPG** 
-4. Click **Install** next to the module listing -->
+4. Click **Install** next to the module listing
 
-## Method 1
+## Method 2
 1. On Foundry VTT's **Configuration and Setup** screen, go to **Add-on Modules**
 2. Click **Install Module**
 3. In the Manifest URL field, paste: `https://github.com/ortegamarcel/fvtt-token-action-hud-thewitchertrpg/releases/latest/download/module.json`

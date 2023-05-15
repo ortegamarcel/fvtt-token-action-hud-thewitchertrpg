@@ -1,0 +1,24 @@
+.skill-settings-body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 17px 20px;
+    height: 630px;
+}
+
+.skill-settings-body > div {
+    width: 200px;
+}
+
+.skill-setting {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skill-settings-footer {
+    display: flex;
+    flex-wrap: nowrap;
+    column-gap: 5px;
+}

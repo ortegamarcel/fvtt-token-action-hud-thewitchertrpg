@@ -51,6 +51,9 @@
   "scripts": [
     "scripts/polyfills.js"
   ],
+  "styles": [
+    "styles/skill-settings-menu.css"
+  ],
   "minimumCoreVersion": "0.6.2",
   "compatibleCoreVersion": "10",
   "compatibility": {
