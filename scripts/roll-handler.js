@@ -106,7 +106,25 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         }
 
         async _consumeItem(actor, item) {
-            const verb = Utils.i18n((item.system.type == 'oil' || item.system.type == 'alchemical-item') ? "TAH_WITCHER.use" : "TAH_WITCHER.consume")
+            const isOil = item.system.type == 'oil';
+            const isAlchemicalItem = item.system.type == 'alchemical-item';
+            const isPotion = item.system.type == 'potion';
+            const isDecoction = item.system.type == 'decoction';
+            const isFoodOrDring = false;
+            
+            let verb;
+            if (isOil) {
+                verb = "TAH_WITCHER.consumeOil";
+            } else if (isAlchemicalItem) {
+                verb = "TAH_WITCHER.consumeAlchemicalItem";
+            } else if (isPotion) {
+                verb = "TAH_WITCHER.consumePotion";
+            } else if (isDecoction) {
+                verb = "TAH_WITCHER.consumeDecoction";
+            } else if (isFoodOrDring) {
+                verb = "TAH_WITCHER.consumeFoodOrDrink";
+            }
+            verb = Utils.i18n(verb);
             const title = `${verb}: 1x ${item.name}`;
             const consumeBtn = {
                 label: verb,
@@ -122,9 +140,45 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     }
                     message = message.replace('%itemName', item.name).replace('%itemQuantity', quantity - 1);
                     ui.notifications.info(message);
+
+                    let title;
+                    if (isOil) {
+                        title = "TAH_WITCHER.Chat.actorConsumedOil";
+                    } else if (isAlchemicalItem) {
+                        title = "TAH_WITCHER.Chat.actorConsumedAlchemicalItem";
+                    } else if (isPotion) {
+                        title = "TAH_WITCHER.Chat.actorConsumedPotion";
+                    } else if (isDecoction) {
+                        title = "TAH_WITCHER.Chat.actorConsumedDecoction";
+                    } else if (isFoodOrDring) { 
+                        title = "TAH_WITCHER.Chat.actorConsumedFoodOrDrink";
+                    }
+                    title = Utils.i18n(title);
+
+                    const style = "display: flex; flex-wrap: nowrap; column-gap: 10px; align-items: center; border: 2px solid black; border-bottom-width: 1px; font-size: 15px; background: lightgoldenrodyellow;";
+                    const descriptionStyle = "border: 2px solid black; border-top: none; padding: 5px; background: floralwhite;";
+
+                    let content = `<h3>${title}</h3>`;
+                    content += `<div style="${style}"><img src="${Utils.getImage(item)}" alt="Item" width="40px">1x ${item.name}</div>`;
+                    if (item.system.description || item.system.effect) {
+                        content += `<div style="${descriptionStyle}">${item.system.description || item.system.effect}</div>`
+                    }
+
+                    const showToAll = Utils.getSetting('showToAll');
+                    // Show Chat message
+                    const chatData = {
+                        speaker: ChatMessage.getSpeaker({ actor }),
+                        content,
+                        ...(!showToAll && { whisper: game.users.filter(user => user.isGM).map(user => user.id) })
+                    };
+                    ChatMessage.create(chatData);
+
+                    if (showToAll) {
+                        await (new ChatBubbles()).say(canvas.tokens.controlled[0], title);
+                    }
                 }
             }
-            await this._showDescription(title, `<p>${item.system.description || item.system.effect}</p>`, consumeBtn);
+            await this._showDescription(title, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, consumeBtn);
 
             Hooks.callAll('forceUpdateTokenActionHud');
         }

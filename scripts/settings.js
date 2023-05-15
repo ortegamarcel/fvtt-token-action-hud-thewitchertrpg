@@ -92,4 +92,13 @@ export const registerSettings = function() {
         default: 'X',
         onChange
     });
+
+    game.settings.register(MODULE.ID, 'showToAll', {
+        name: Utils.i18n('TAH_WITCHER.Settings.showToAll'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.showToAllHint'),
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: true
+    });
 }
