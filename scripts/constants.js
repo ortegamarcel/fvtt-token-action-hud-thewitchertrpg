@@ -95,9 +95,9 @@ export const SKILL = {
     dex: {
         archery: { stat: 'dex', active: false, name: 'WITCHER.SkDexArchery', statNum: 2, skillNum: 0 },
         athletics: { stat: 'dex', active: true, name: 'WITCHER.SkDexAthletics', statNum: 2, skillNum: 1 },
-        crossbow: { stat: 'dex', active: false, name: 'WITCHER.SkDexAthletics', statNum: 2, skillNum: 2 },
-        sleight: { stat: 'dex', active: false, name: 'WITCHER.SkDexAthletics', statNum: 2, skillNum: 3 },
-        stealth: { stat: 'dex', active: true, name: 'WITCHER.SkDexAthletics', statNum: 2, skillNum: 4 },
+        crossbow: { stat: 'dex', active: false, name: 'WITCHER.SkDexCrossbow', statNum: 2, skillNum: 2 },
+        sleight: { stat: 'dex', active: false, name: 'WITCHER.SkDexSleight', statNum: 2, skillNum: 3 },
+        stealth: { stat: 'dex', active: true, name: 'WITCHER.SkDexStealth', statNum: 2, skillNum: 4 },
     },
     body: {
         physique: { stat: 'body', active: true, name: 'WITCHER.SkBodyPhys', statNum: 3, skillNum: 0 },
