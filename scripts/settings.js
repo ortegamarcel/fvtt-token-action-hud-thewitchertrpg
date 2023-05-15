@@ -1,7 +1,37 @@
-import { MODULE } from "./constants.js";
+import SkillSettingsMenu from "./settings/SkillSettingsMenu.js";
+import { MODULE, SKILL } from "./constants.js";
 import { Utils } from "./utils.js";
 
+class MySubmenuApplicationClass extends FormApplication {
+    // lots of other things...
+  
+    getData() {
+      return game.settings.get('myModuleName', 'myComplexSettingName');
+    }
+  
+    _updateObject(event, formData) {
+      const data = expandObject(formData);
+      game.settings.set(MODULE.ID, 'skillSettings', data);
+    }
+  }
+
 export const registerSettings = function() {
+    game.settings.registerMenu(MODULE.ID, "skillSettingsMenu", {
+        name: Utils.i18n('TAH_WITCHER.Settings.skillSettings'),
+        label: Utils.i18n('TAH_WITCHER.Settings.skillSettingsLabel'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.skillSettingsHint'),
+        icon: "fas fa-bars",
+        type: SkillSettingsMenu,
+        restricted: true
+    });
+
+    game.settings.register(MODULE.ID, 'skillSettings', {
+        scope: 'world',
+        config: false,
+        type: Object,
+        default: SKILL
+    });
+
     game.settings.register(MODULE.ID, 'sortSkillsAlphabetically', {
         name: Utils.i18n('TAH_WITCHER.Settings.sortSkillsAlphabetically'),
         hint: Utils.i18n('TAH_WITCHER.Settings.sortSkillsAlphabeticallyHint'),

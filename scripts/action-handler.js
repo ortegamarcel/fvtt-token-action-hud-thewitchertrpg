@@ -1,4 +1,4 @@
-import { ACTION_TYPE, GROUP, ICON, SKILL } from "./constants.js";
+import { ACTION_TYPE, GROUP, ICON } from "./constants.js";
 import { Utils } from "./utils.js";
 
 export let ActionHandler = null;
@@ -13,6 +13,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             //this.tokens = (!this.token) ? this._getTokens() : [this.token]
             //this.actorType = this.actor?.type
 
+            const skillSettings = Utils.getSetting('skillSettings');
             const token = this.token;
             const actor = this.actor;
             if (!token || !actor || (actor.type != 'character' && actor.type != 'monster')) {
@@ -23,22 +24,22 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             this._getDefense(actor, token.id, { id: GROUP.defense.id, type: 'system' });
             this._getSpecialActions(actor, token.id, { id: GROUP.specialActions.id, type: 'system' });
             if (Utils.getSetting('showSkillCategories')) {
-                this._getSkills(SKILL.int, actor, token.id, { id: GROUP.intSkills.id, type: 'system' });
-                this._getSkills(SKILL.ref, actor, token.id, { id: GROUP.refSkills.id, type: 'system' });
-                this._getSkills(SKILL.dex, actor, token.id, { id: GROUP.dexSkills.id, type: 'system' });
-                this._getSkills(SKILL.body, actor, token.id, { id: GROUP.bodySkills.id, type: 'system' });
-                this._getSkills(SKILL.emp, actor, token.id, { id: GROUP.empSkills.id, type: 'system' });
-                this._getSkills(SKILL.cra, actor, token.id, { id: GROUP.craSkills.id, type: 'system' });
-                this._getSkills(SKILL.will, actor, token.id, { id: GROUP.willSkills.id, type: 'system' });
+                this._getSkills(skillSettings.int, actor, token.id, { id: GROUP.intSkills.id, type: 'system' });
+                this._getSkills(skillSettings.ref, actor, token.id, { id: GROUP.refSkills.id, type: 'system' });
+                this._getSkills(skillSettings.dex, actor, token.id, { id: GROUP.dexSkills.id, type: 'system' });
+                this._getSkills(skillSettings.body, actor, token.id, { id: GROUP.bodySkills.id, type: 'system' });
+                this._getSkills(skillSettings.emp, actor, token.id, { id: GROUP.empSkills.id, type: 'system' });
+                this._getSkills(skillSettings.cra, actor, token.id, { id: GROUP.craSkills.id, type: 'system' });
+                this._getSkills(skillSettings.will, actor, token.id, { id: GROUP.willSkills.id, type: 'system' });
             } else {
                 this._getSkills({
-                    ...SKILL.int,
-                    ...SKILL.ref,
-                    ...SKILL.dex,
-                    ...SKILL.body,
-                    ...SKILL.emp,
-                    ...SKILL.cra,
-                    ...SKILL.will
+                    ...skillSettings.int,
+                    ...skillSettings.ref,
+                    ...skillSettings.dex,
+                    ...skillSettings.body,
+                    ...skillSettings.emp,
+                    ...skillSettings.cra,
+                    ...skillSettings.will
                 }, actor, token.id, { id: GROUP.allSkills.id, type: 'system' });
             }
             this._getProfessionSkills(actor, token.id, { id: GROUP.professionSkills.id, type: 'system' });

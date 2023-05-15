@@ -1,0 +1,74 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="skill-settings-body">
+        <div>
+            <h2>{{localize "WITCHER.StInt"}}</h2>
+            {{#each skills.int}}
+            <div class="skill-setting">
+                <label for="{{name}}">{{localize name}}</label>
+                <input type="checkbox" id="{{name}}" name="{{@key}}-int" {{checked active}}>
+            </div>
+            {{/each}}
+        </div>
+        <div>
+            <h2>{{localize "WITCHER.StCra"}}</h2>
+            {{#each skills.cra}}
+            <div class="skill-setting">
+                <label for="{{name}}">{{localize name}}</label>
+                <input type="checkbox" id="{{name}}" name="{{@key}}-cra" {{checked active}}>
+            </div>
+            {{/each}}
+        </div>
+        <div>
+            <h2>{{localize "WITCHER.StDex"}}</h2>
+            {{#each skills.dex}}
+            <div class="skill-setting">
+                <label for="{{name}}">{{localize name}}</label>
+                <input type="checkbox" id="{{name}}" name="{{@key}}-dex" {{checked active}}>
+            </div>
+            {{/each}}
+        </div>
+        <div>
+            <h2>{{localize "WITCHER.StEmp"}}</h2>
+            {{#each skills.emp}}
+            <div class="skill-setting">
+                <label for="{{name}}">{{localize name}}</label>
+                <input type="checkbox" id="{{name}}" name="{{@key}}-emp" {{checked active}}>
+            </div>
+            {{/each}}
+        </div>
+        <div>
+            <h2>{{localize "WITCHER.StBody"}}</h2>
+            {{#each skills.body}}
+            <div class="skill-setting">
+                <label for="{{name}}">{{localize name}}</label>
+                <input type="checkbox" id="{{name}}" name="{{@key}}-body" {{checked active}}>
+            </div>
+            {{/each}}
+        </div>
+        <div>
+            <h2>{{localize "WITCHER.StRef"}}</h2>
+            {{#each skills.ref}}
+            <div class="skill-setting">
+                <label for="{{name}}">{{localize name}}</label>
+                <input type="checkbox" id="{{name}}" name="{{@key}}-ref" {{checked active}}>
+            </div>
+            {{/each}}
+        </div>
+        <div>
+            <h2>{{localize "WITCHER.StWill"}}</h2>
+            {{#each skills.will}}
+            <div class="skill-setting">
+                <label for="{{name}}">{{localize name}}</label>
+                <input type="checkbox" id="{{name}}" name="{{@key}}-will" {{checked active}}>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <footer class="skill-settings-footer">
+        <div>
+            <button id="tahw-skill-settings-reset" type="button">{{localize "TAH_WITCHER.Settings.reset"}}</button>
+            <button type="submit">{{localize "TAH_WITCHER.Settings.save"}}</button>
+        </div>
+    </footer>
+</form>
