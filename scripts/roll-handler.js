@@ -69,43 +69,64 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 case ACTION_TYPE.castMagic:
                     // right click
                     if (event.which == 3) {
-                        this._showDescription(item.name, `<p>${item.system.effect}</p>`, () => {
-                            actor.sheet._onSpellRoll.call(actor.sheet, null, itemId);
-                        });
+                        const rollBtn = {
+                            label: Utils.i18n('WITCHER.Dialog.ButtonRoll'),
+                            callback: () => {
+                                actor.sheet._onSpellRoll.call(actor.sheet, null, itemId);
+                            }
+                        };
+                        this._showDescription(item.name, `<p>${item.system.effect}</p>`, rollBtn);
                     } else {
                         actor.sheet._onSpellRoll.call(actor.sheet, null, itemId);
                     }
+                    break;
+                case ACTION_TYPE.consume:
+                    this._consumeItem(actor, item);
                     break;
                 default:
                     console.warn(`${MODULE.ID}: Unknown action "${action}"`);
                     break;
             }
-
-            // Ensure the HUD reflects the new conditions
-            // Hooks.callAll('forceUpdateTokenActionHud');
         }
 
         /** Shows the description or effect of an item. */
-        async _showDescription(title, content, rollFn) {
-            let buttons = {};
-            if (rollFn) {
-                buttons = {
-                    roll: {
-                        label: Utils.i18n('WITCHER.Dialog.ButtonRoll'),
-                        callback: rollFn
-                    },
-                    cancel: {
-                        label: Utils.i18n('WITCHER.Button.Cancel'),
-                        callback: () => {}
-                    }
-                };
-            }
-
+        async _showDescription(title, content, btn) {
+            const buttons = {
+                btn,
+                cancel: {
+                    label: Utils.i18n('WITCHER.Button.Cancel'),
+                    callback: () => {}
+                }
+            };
             return new Dialog({
                 title,
                 content,
                 buttons
             }).render(true);
+        }
+
+        async _consumeItem(actor, item) {
+            const verb = Utils.i18n((item.system.type == 'oil' || item.system.type == 'alchemical-item') ? "TAH_WITCHER.use" : "TAH_WITCHER.consume")
+            const title = `${verb}: 1x ${item.name}`;
+            const consumeBtn = {
+                label: verb,
+                callback: async () => {
+                    const quantity = item.system.quantity;
+                    let message;
+                    if (quantity > 1) {
+                        await item.update({ system: { quantity: quantity - 1 } });
+                        message = Utils.i18n("TAH_WITCHER.Notifications.removedItem");
+                    } else {
+                        await actor.deleteEmbeddedDocuments('Item', [item.id]);
+                        message = Utils.i18n("TAH_WITCHER.Notifications.removedLastItem");
+                    }
+                    message = message.replace('%itemName', item.name).replace('%itemQuantity', quantity - 1);
+                    ui.notifications.info(message);
+                }
+            }
+            await this._showDescription(title, `<p>${item.system.description || item.system.effect}</p>`, consumeBtn);
+
+            Hooks.callAll('forceUpdateTokenActionHud');
         }
 
         _getProfessionSkill(actor, skillName) {

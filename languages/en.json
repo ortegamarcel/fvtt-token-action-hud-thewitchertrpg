@@ -8,6 +8,11 @@
         "recover": "Recover Stamina",
         "gainedSta": "You have gained stamina.",
         "fullSta": "You already have max stamina.",
+        "decoctions": "Witcher Decoctions",
+        "potions": "Witcher Potions",
+        "consumables": "Consumables",
+        "consume": "Consume",
+        "use": "Use",
         "Settings": {
             "sortSkillsAlphabetically": "Sort Skills",
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",
@@ -33,6 +38,10 @@
             "save": "Save",
             "deselectAll": "Deselect All",
             "selectAll": "Select All"
+        },
+        "Notifications": {
+            "removedItem": "One '%itemName' was removed from your inventory. You have %itemQuantity left.",
+            "removedLastItem": "The last '%itemName' was removed from your inventory."
         }
     }
 }

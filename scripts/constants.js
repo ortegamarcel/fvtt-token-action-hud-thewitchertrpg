@@ -37,6 +37,7 @@ export const ACTION_TYPE = {
     skill: 'skill',
     professionSkill: 'profession_skill',
     castMagic: 'castMagic',
+    consume: 'consume'
 };
 
 export const GROUP = {
@@ -64,6 +65,12 @@ export const GROUP = {
     signs: { id: 'signs', name: 'WITCHER.Spell.Witcher', type: 'system' },
     rituals: { id: 'rituals', name: 'WITCHER.Spell.Rituals', type: 'system' },
     hexes: { id: 'hexes', name: 'WITCHER.Spell.Hexes', type: 'system' },
+
+    // consumables
+    alchemicalItems: { id: 'alechmical-items', name: 'WITCHER.Inventory.AlchemicalItems', type: 'system' },
+    potions: { id: 'potions', name: 'TAH_WITCHER.potions', type: 'system' },
+    decoctions: { id: 'decoctions', name: 'TAH_WITCHER.decoctions', type: 'system' },
+    oils: { id: 'oils', name: 'WITCHER.Inventory.Oils', type: 'system' },
 };
 
 export const SKILL = {
