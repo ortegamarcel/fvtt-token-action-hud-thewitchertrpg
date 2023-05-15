@@ -8,6 +8,15 @@
         "recover": "Ausdauer Erholen",
         "gainedSta": "Du hast Ausdauer regeneriert.",
         "fullSta": "Du hast bereits volle Ausdauer.",
+        "decoctions": "Hexer Mixturen",
+        "potions": "Hexer Tränke",
+        "consumables": "Inventar",
+        "consumeOil": "Verwenden",
+        "consumeAlchemicalItem": "Verwenden",
+        "consumePotion": "Trinken",
+        "consumeDecoction": "Trinken",
+        "consumeFoodOrDrink": "Verzehren",
+        "noDetailsAvailable": "Zu diesem Gegenstand sind keine detaillierten Information vorhanden.",
         "Settings": {
             "sortSkillsAlphabetically": "Fertigkeiten sortieren",
             "sortSkillsAlphabeticallyHint": "Wenn angekreuzt, werden alle Fertigkeiten innerhalb ihrer Kategorie von A nach Z sortiert.",
@@ -32,7 +41,16 @@
             "reset": "Zurücksetzen",
             "save": "Speichern",
             "deselectAll": "Alle Abwählen",
-            "selectAll": "Alle Auswählen"
+            "selectAll": "Alle Auswählen",
+            "showToAll": "Zeige Verbrauchsgegenstände allen an",
+            "showToAllHint": "Wenn angekreuzt, wird allen eine Chat Nachricht angezeigt, wenn jemand einen Verbrauchsgegenstand konsumiert. Ansonsten, kann es nur der Verbraucher und der Spielleiter sehen."
+        },
+        "Chat": {
+            "actorConsumedOil": "Ich habe ein Klingenöl auf meine Waffe aufgetragen!",
+            "actorConsumedAlchemicalItem": "Ich habe einen alchemistischen Gegenstand verwendet!",
+            "actorConsumedPotion": "Ich habe einen Hexer-Trank getrunken!",
+            "actorConsumedDecoction": "Ich habe eine Hexer-Mixtur getrunken!",
+            "actorConsumedFoodOrDrink": "Ich habe etwas verzehrt!"
         }
     }
 }

@@ -59,6 +59,18 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     { ...groups.rituals, nestId: 'magic_rituals' },
                     { ...groups.hexes, nestId: 'magic_hexes' },
                 ]
+            },
+            {
+                nestId: 'consumables',
+                id: 'consumables',
+                name: coreModule.api.Utils.i18n('TAH_WITCHER.consumables'),
+                groups: [
+                    { ...groups.foodAndDrinks, nestId: 'consumables_food-and-drinks' },
+                    { ...groups.alchemicalItems, nestId: 'consumables_alchemical-items' },
+                    { ...groups.oils, nestId: 'consumables_oils' },
+                    { ...groups.potions, nestId: 'consumables_potions' },
+                    { ...groups.decoctions, nestId: 'consumables_decoctions' },
+                ]
             }
         ],
         groups: groupsArray

@@ -2,18 +2,9 @@ import SkillSettingsMenu from "./settings/SkillSettingsMenu.js";
 import { MODULE, SKILL } from "./constants.js";
 import { Utils } from "./utils.js";
 
-class MySubmenuApplicationClass extends FormApplication {
-    // lots of other things...
-  
-    getData() {
-      return game.settings.get('myModuleName', 'myComplexSettingName');
-    }
-  
-    _updateObject(event, formData) {
-      const data = expandObject(formData);
-      game.settings.set(MODULE.ID, 'skillSettings', data);
-    }
-  }
+function onChange(value) {
+    Hooks.callAll('forceUpdateTokenActionHud');
+}
 
 export const registerSettings = function() {
     game.settings.registerMenu(MODULE.ID, "skillSettingsMenu", {
@@ -29,7 +20,8 @@ export const registerSettings = function() {
         scope: 'client',
         config: false,
         type: Object,
-        default: SKILL
+        default: SKILL,
+        onChange
     });
 
     game.settings.register(MODULE.ID, 'sortSkillsAlphabetically', {
@@ -38,7 +30,8 @@ export const registerSettings = function() {
         scope: 'client',
         config: true,
         type: Boolean,
-        default: true
+        default: true,
+        onChange
     });
 
     game.settings.register(MODULE.ID, 'showSkillCategories', {
@@ -47,7 +40,8 @@ export const registerSettings = function() {
         scope: 'client',
         config: true,
         type: Boolean,
-        default: true
+        default: true,
+        onChange
     });
 
     game.settings.register(MODULE.ID, 'showSkillSuffix', {
@@ -61,7 +55,8 @@ export const registerSettings = function() {
             never: Utils.i18n('TAH_WITCHER.Settings.showSkillSuffixNever'),
             ifSkilled: Utils.i18n('TAH_WITCHER.Settings.showSkillSuffixIfSkilled'),
             always: Utils.i18n('TAH_WITCHER.Settings.showSkillSuffixAlways')
-        }
+        },
+        onChange
     });
 
     game.settings.register(MODULE.ID, 'skillSuffix', {
@@ -74,7 +69,8 @@ export const registerSettings = function() {
         choices: {
             skillpoints: Utils.i18n('TAH_WITCHER.Settings.skillSuffixSkillpoints'),
             basevalue: Utils.i18n('TAH_WITCHER.Settings.skillSuffixBasevalue')
-        }
+        },
+        onChange
     });
 
     game.settings.register(MODULE.ID, 'showMagicStaCost', {
@@ -83,7 +79,8 @@ export const registerSettings = function() {
         scope: 'client',
         config: true,
         type: Boolean,
-        default: true
+        default: true,
+        onChange
     });
 
     game.settings.register(MODULE.ID, 'magicVarStaCostLabel', {
@@ -92,6 +89,16 @@ export const registerSettings = function() {
         scope: 'client',
         config: true,
         type: String,
-        default: 'X'
+        default: 'X',
+        onChange
+    });
+
+    game.settings.register(MODULE.ID, 'showToAll', {
+        name: Utils.i18n('TAH_WITCHER.Settings.showToAll'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.showToAllHint'),
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: true
     });
 }

@@ -8,6 +8,15 @@
         "recover": "Recover Stamina",
         "gainedSta": "You have gained stamina.",
         "fullSta": "You already have max stamina.",
+        "decoctions": "Witcher Decoctions",
+        "potions": "Witcher Potions",
+        "consumables": "Inventory",
+        "consumeOil": "Use",
+        "consumeAlchemicalItem": "Use",
+        "consumePotion": "Consume",
+        "consumeDecoction": "Consume",
+        "consumeFoodOrDrink": "Consume",
+        "noDetailsAvailable": "There are no detailed information available for this item.",
         "Settings": {
             "sortSkillsAlphabetically": "Sort Skills",
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",
@@ -32,7 +41,16 @@
             "reset": "Reset",
             "save": "Save",
             "deselectAll": "Deselect All",
-            "selectAll": "Select All"
+            "selectAll": "Select All",
+            "showToAll": "Show Consumables to everyone",
+            "showToAllHint": "If checked, everyone will be shown a chat message when someone consumes a item. Otherwise, only the consumer and the gamemaster can see it."
+        },
+        "Chat": {
+            "actorConsumedOil": "I have applied a blade coating to my weapon!",
+            "actorConsumedAlchemicalItem": "I have used an alchemical item!",
+            "actorConsumedPotion": "I have consumed a Witcher potion!",
+            "actorConsumedDecoction": "I have consumed a Witcher decoction!",
+            "actorConsumedFoodOrDrink": "I have consumed something!"
         }
     }
 }
