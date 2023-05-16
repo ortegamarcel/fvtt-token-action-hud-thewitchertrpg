@@ -17,6 +17,7 @@
         "consumeDecoction": "Consume",
         "consumeFoodOrDrink": "Consume",
         "noDetailsAvailable": "There are no detailed information available for this item.",
+        "zoomableItems": "Interesting Items",
         "Settings": {
             "sortSkillsAlphabetically": "Sort Skills",
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",

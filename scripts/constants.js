@@ -37,7 +37,8 @@ export const ACTION_TYPE = {
     skill: 'skill',
     professionSkill: 'profession_skill',
     castMagic: 'castMagic',
-    consume: 'consume'
+    consume: 'consume',
+    zoom: 'zoom'
 };
 
 export const GROUP = {
@@ -67,6 +68,7 @@ export const GROUP = {
     hexes: { id: 'hexes', name: 'WITCHER.Spell.Hexes', type: 'system' },
 
     // inventory
+    zoomableItems: { id: 'zoomable-items', name: 'TAH_WITCHER.zoomableItems', type: 'system' },
     foodAndDrinks: { id: 'food-and-drinks', name: 'WITCHER.Valuable.Food&Drinks', type: 'system' },
     alchemicalItems: { id: 'alechmical-items', name: 'WITCHER.Inventory.AlchemicalItems', type: 'system' },
     potions: { id: 'potions', name: 'TAH_WITCHER.potions', type: 'system' },

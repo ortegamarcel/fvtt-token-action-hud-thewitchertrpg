@@ -17,6 +17,7 @@
         "consumeDecoction": "Trinken",
         "consumeFoodOrDrink": "Verzehren",
         "noDetailsAvailable": "Zu diesem Gegenstand sind keine detaillierten Information vorhanden.",
+        "zoomableItems": "Interessante Gegenstände",
         "Settings": {
             "sortSkillsAlphabetically": "Fertigkeiten sortieren",
             "sortSkillsAlphabeticallyHint": "Wenn angekreuzt, werden alle Fertigkeiten innerhalb ihrer Kategorie von A nach Z sortiert.",

@@ -83,6 +83,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 case ACTION_TYPE.consume:
                     this._consumeItem(actor, item);
                     break;
+                case ACTION_TYPE.zoom:
+                    const event = this._createDatasetEvent({ itemId });
+                    actor.sheet._onItemShow(event);
+                    break;
                 default:
                     console.warn(`${MODULE.ID}: Unknown action "${action}"`);
                     break;
@@ -187,18 +191,21 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         _createProfessionSkillEvent(actor, skillName) {
             const skill = this._getProfessionSkill(actor, skillName);
             if (skill) {
-                return {
-                    currentTarget: {
-                        closest: () => ({
-                            dataset: {
-                                stat: skill.stat,
-                                level: skill.level,
-                                name: skill.skillName,
-                                effet: skill.definition
-                            }
-                        })
-                    }
-                };
+                return this._createDatasetEvent({
+                    stat: skill.stat,
+                    level: skill.level,
+                    name: skill.skillName,
+                    effet: skill.definition
+                });
+            }
+        }
+
+        _createDatasetEvent(dataset) {
+            return {
+                preventDefault: () => {},
+                currentTarget: {
+                    closest: () => ({ dataset })
+                }
             }
         }
     }
