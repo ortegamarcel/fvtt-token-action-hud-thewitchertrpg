@@ -20,6 +20,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const actor = Utils.getActor(actorId, tokenId);
             let itemId = args?.[0];
             const item = actor.items.get(itemId);
+            let _event;
                 
             switch (action) {
                 case ACTION_TYPE.attack:
@@ -55,13 +56,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     break;
                 case ACTION_TYPE.professionSkill:
                     const skillName = args[0];
-                    const _event = this._createProfessionSkillEvent(actor, skillName);
+                    _event = this._createProfessionSkillEvent(actor, skillName);
                     // right click
                     if (event.which == 3) {
                         const skill = this._getProfessionSkill(actor, skillName);
-                        this._showDescription(skill.skillName, skill.definition, () => {
-                            actor.sheet._onProfessionRoll.call(actor.sheet, _event);
-                        });
+                        const btn = {
+                            label: Utils.i18n('WITCHER.Dialog.ButtonRoll'),
+                            callback: () => actor.sheet._onProfessionRoll.call(actor.sheet, _event)
+                        };
+                        this._showDescription(skill.skillName, skill.definition, btn);
                     } else {
                         actor.sheet._onProfessionRoll.call(actor.sheet, _event);
                     }
@@ -84,8 +87,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     this._consumeItem(actor, item);
                     break;
                 case ACTION_TYPE.zoom:
-                    const event = this._createDatasetEvent({ itemId });
-                    actor.sheet._onItemShow(event);
+                    _event = this._createDatasetEvent({ itemId });
+                    actor.sheet._onItemShow(_event);
+                    break;
+                case ACTION_TYPE.show:
+                    this._showDescription(item.name, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, null);
                     break;
                 default:
                     console.warn(`${MODULE.ID}: Unknown action "${action}"`);
@@ -95,13 +101,16 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
         /** Shows the description or effect of an item. */
         async _showDescription(title, content, btn) {
-            const buttons = {
-                btn,
-                cancel: {
-                    label: Utils.i18n('WITCHER.Button.Cancel'),
-                    callback: () => {}
-                }
-            };
+            let buttons = {};
+            if (btn) {
+                buttons = {
+                    btn,
+                    cancel: {
+                        label: Utils.i18n('WITCHER.Button.Cancel'),
+                        callback: () => {}
+                    }
+                };
+            }
             return new Dialog({
                 title,
                 content,

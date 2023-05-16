@@ -38,7 +38,8 @@ export const ACTION_TYPE = {
     professionSkill: 'profession_skill',
     castMagic: 'castMagic',
     consume: 'consume',
-    zoom: 'zoom'
+    zoom: 'zoom',
+    show: 'show',
 };
 
 export const GROUP = {

@@ -60,6 +60,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             // Inventory
             const zoomableOptions = new ItemFilterOptions(FilterFn.bySystemProp('clickableImage', true), ACTION_TYPE.zoom, false);
             this._getItems(actor, token.id, { id: GROUP.zoomableItems.id, type: 'system' }, zoomableOptions);
+            if (Utils.getSetting('showQuestItems')) {
+                const questItemOptions = new ItemFilterOptions(FilterFn.byTypeAndSubtype('valuable', 'quest-item'), ACTION_TYPE.show, false);
+                this._getItems(actor, token.id, { id: GROUP.zoomableItems.id, type: 'system' }, questItemOptions);
+            }
             const consumableOptions = new ItemFilterOptions(FilterFn.byTypeAndSubtype('valuable', 'food-drink'));
             this._getItems(actor, token.id, { id: GROUP.foodAndDrinks.id, type: 'system' }, consumableOptions);
             consumableOptions.filterFn = FilterFn.byTypeAndSubtype('valuable', 'alchemical-item');
@@ -246,7 +250,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 .filter(options.filterFn)
                 .map(item => ({
                     id: item.id,
-                    name: options.showQuantity ? `${item.name} ${item.system.quantity}` : item.name,
+                    name: options.showQuantity ? `${item.system.quantity}x ${item.name}` : item.name,
                     img: Utils.getImage(item),
                     encodedValue: [options.actionType, actor.id, tokenId, item.id].join(this.delimiter)
                 }));
