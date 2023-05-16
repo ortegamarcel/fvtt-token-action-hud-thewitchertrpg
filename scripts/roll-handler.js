@@ -20,6 +20,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const actor = Utils.getActor(actorId, tokenId);
             let itemId = args?.[0];
             const item = actor.items.get(itemId);
+            let _event;
                 
             switch (action) {
                 case ACTION_TYPE.attack:
@@ -55,13 +56,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     break;
                 case ACTION_TYPE.professionSkill:
                     const skillName = args[0];
-                    const _event = this._createProfessionSkillEvent(actor, skillName);
+                    _event = this._createProfessionSkillEvent(actor, skillName);
                     // right click
                     if (event.which == 3) {
                         const skill = this._getProfessionSkill(actor, skillName);
-                        this._showDescription(skill.skillName, skill.definition, () => {
-                            actor.sheet._onProfessionRoll.call(actor.sheet, _event);
-                        });
+                        const btn = {
+                            label: Utils.i18n('WITCHER.Dialog.ButtonRoll'),
+                            callback: () => actor.sheet._onProfessionRoll.call(actor.sheet, _event)
+                        };
+                        this._showDescription(skill.skillName, skill.definition, btn);
                     } else {
                         actor.sheet._onProfessionRoll.call(actor.sheet, _event);
                     }
@@ -69,43 +72,123 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 case ACTION_TYPE.castMagic:
                     // right click
                     if (event.which == 3) {
-                        this._showDescription(item.name, `<p>${item.system.effect}</p>`, () => {
-                            actor.sheet._onSpellRoll.call(actor.sheet, null, itemId);
-                        });
+                        const rollBtn = {
+                            label: Utils.i18n('WITCHER.Dialog.ButtonRoll'),
+                            callback: () => {
+                                actor.sheet._onSpellRoll.call(actor.sheet, null, itemId);
+                            }
+                        };
+                        this._showDescription(item.name, `<p>${item.system.effect}</p>`, rollBtn);
                     } else {
                         actor.sheet._onSpellRoll.call(actor.sheet, null, itemId);
                     }
+                    break;
+                case ACTION_TYPE.consume:
+                    this._consumeItem(actor, item);
+                    break;
+                case ACTION_TYPE.zoom:
+                    _event = this._createDatasetEvent({ itemId });
+                    actor.sheet._onItemShow(_event);
+                    break;
+                case ACTION_TYPE.show:
+                    this._showDescription(item.name, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, null);
                     break;
                 default:
                     console.warn(`${MODULE.ID}: Unknown action "${action}"`);
                     break;
             }
-
-            // Ensure the HUD reflects the new conditions
-            // Hooks.callAll('forceUpdateTokenActionHud');
         }
 
         /** Shows the description or effect of an item. */
-        async _showDescription(title, content, rollFn) {
+        async _showDescription(title, content, btn) {
             let buttons = {};
-            if (rollFn) {
+            if (btn) {
                 buttons = {
-                    roll: {
-                        label: Utils.i18n('WITCHER.Dialog.ButtonRoll'),
-                        callback: rollFn
-                    },
+                    btn,
                     cancel: {
                         label: Utils.i18n('WITCHER.Button.Cancel'),
                         callback: () => {}
                     }
                 };
             }
-
             return new Dialog({
                 title,
                 content,
                 buttons
             }).render(true);
+        }
+
+        async _consumeItem(actor, item) {
+            const isOil = item.system.type == 'oil';
+            const isAlchemicalItem = item.system.type == 'alchemical-item';
+            const isPotion = item.system.type == 'potion';
+            const isDecoction = item.system.type == 'decoction';
+            const isFoodOrDring = item.system.type == 'food-drink';
+            
+            let verb;
+            if (isOil) {
+                verb = "TAH_WITCHER.consumeOil";
+            } else if (isAlchemicalItem) {
+                verb = "TAH_WITCHER.consumeAlchemicalItem";
+            } else if (isPotion) {
+                verb = "TAH_WITCHER.consumePotion";
+            } else if (isDecoction) {
+                verb = "TAH_WITCHER.consumeDecoction";
+            } else if (isFoodOrDring) {
+                verb = "TAH_WITCHER.consumeFoodOrDrink";
+            }
+            verb = Utils.i18n(verb);
+            const title = `${verb}: 1x ${item.name}`;
+            const consumeBtn = {
+                label: verb,
+                callback: async () => {
+                    const quantity = item.system.quantity;
+                    if (quantity > 1 || isFoodOrDring) {
+                        await item.update({ system: { quantity: quantity - 1 } });
+                    } else {
+                        await actor.deleteEmbeddedDocuments('Item', [item.id]);
+                    }
+
+                    let title;
+                    if (isOil) {
+                        title = "TAH_WITCHER.Chat.actorConsumedOil";
+                    } else if (isAlchemicalItem) {
+                        title = "TAH_WITCHER.Chat.actorConsumedAlchemicalItem";
+                    } else if (isPotion) {
+                        title = "TAH_WITCHER.Chat.actorConsumedPotion";
+                    } else if (isDecoction) {
+                        title = "TAH_WITCHER.Chat.actorConsumedDecoction";
+                    } else if (isFoodOrDring) { 
+                        title = "TAH_WITCHER.Chat.actorConsumedFoodOrDrink";
+                    }
+                    title = Utils.i18n(title);
+
+                    const style = "display: flex; flex-wrap: nowrap; column-gap: 10px; align-items: center; border: 2px solid black; border-bottom-width: 1px; font-size: 15px; background: lightgoldenrodyellow;";
+                    const descriptionStyle = "border: 2px solid black; border-top: none; padding: 5px; background: floralwhite;";
+
+                    let content = `<h3>${title}</h3>`;
+                    content += `<div style="${style}"><img src="${Utils.getImage(item)}" alt="Item" width="40px">1x ${item.name}</div>`;
+                    if (item.system.description || item.system.effect) {
+                        content += `<div style="${descriptionStyle}">${item.system.description || item.system.effect}</div>`
+                    }
+
+                    const showToAll = Utils.getSetting('showToAll');
+                    // Show Chat message
+                    const chatData = {
+                        speaker: ChatMessage.getSpeaker({ actor }),
+                        content,
+                        ...(!showToAll && { whisper: game.users.filter(user => user.isGM).map(user => user.id) })
+                    };
+                    ChatMessage.create(chatData);
+
+                    if (showToAll) {
+                        await (new ChatBubbles()).say(canvas.tokens.controlled[0], title);
+                    }
+                }
+            }
+            await this._showDescription(title, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, consumeBtn);
+
+            Hooks.callAll('forceUpdateTokenActionHud');
         }
 
         _getProfessionSkill(actor, skillName) {
@@ -117,18 +200,21 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         _createProfessionSkillEvent(actor, skillName) {
             const skill = this._getProfessionSkill(actor, skillName);
             if (skill) {
-                return {
-                    currentTarget: {
-                        closest: () => ({
-                            dataset: {
-                                stat: skill.stat,
-                                level: skill.level,
-                                name: skill.skillName,
-                                effet: skill.definition
-                            }
-                        })
-                    }
-                };
+                return this._createDatasetEvent({
+                    stat: skill.stat,
+                    level: skill.level,
+                    name: skill.skillName,
+                    effet: skill.definition
+                });
+            }
+        }
+
+        _createDatasetEvent(dataset) {
+            return {
+                preventDefault: () => {},
+                currentTarget: {
+                    closest: () => ({ dataset })
+                }
             }
         }
     }

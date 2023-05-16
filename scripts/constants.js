@@ -37,6 +37,9 @@ export const ACTION_TYPE = {
     skill: 'skill',
     professionSkill: 'profession_skill',
     castMagic: 'castMagic',
+    consume: 'consume',
+    zoom: 'zoom',
+    show: 'show',
 };
 
 export const GROUP = {
@@ -64,6 +67,14 @@ export const GROUP = {
     signs: { id: 'signs', name: 'WITCHER.Spell.Witcher', type: 'system' },
     rituals: { id: 'rituals', name: 'WITCHER.Spell.Rituals', type: 'system' },
     hexes: { id: 'hexes', name: 'WITCHER.Spell.Hexes', type: 'system' },
+
+    // inventory
+    zoomableItems: { id: 'zoomable-items', name: 'TAH_WITCHER.zoomableItems', type: 'system' },
+    foodAndDrinks: { id: 'food-and-drinks', name: 'WITCHER.Valuable.Food&Drinks', type: 'system' },
+    alchemicalItems: { id: 'alechmical-items', name: 'WITCHER.Inventory.AlchemicalItems', type: 'system' },
+    potions: { id: 'potions', name: 'TAH_WITCHER.potions', type: 'system' },
+    decoctions: { id: 'decoctions', name: 'TAH_WITCHER.decoctions', type: 'system' },
+    oils: { id: 'oils', name: 'WITCHER.Inventory.Oils', type: 'system' },
 };
 
 export const SKILL = {
@@ -128,7 +139,7 @@ export const SKILL = {
         courage: { stat: 'will', active: true, name: 'WITCHER.SkWillCourage', statNum: 6, skillNum: 0 },
         hexweave: { stat: 'will', active: false, name: 'WITCHER.SkWillHex', statNum: 6, skillNum: 1 },
         intimidation: { stat: 'will', active: true, name: 'WITCHER.SkWillIntim', statNum: 6, skillNum: 2 },
-        spellcast: { stat: 'will', active: false, name: 'WITCHER.SkWillSpellcast', statNum: 6, skillNum: 3 },
+        spellcast: { stat: 'will', active: true, name: 'WITCHER.SkWillSpellcast', statNum: 6, skillNum: 3 },
         resistmagic: { stat: 'will', active: true, name: 'WITCHER.SkWillResistMag', statNum: 6, skillNum: 4 },
         resistcoerc: { stat: 'will', active: true, name: 'WITCHER.SkWillResistCoer', statNum: 6, skillNum: 5 },
         ritcraft: { stat: 'will', active: false, name: 'WITCHER.SkWillRitCraft', statNum: 6, skillNum: 6 },
