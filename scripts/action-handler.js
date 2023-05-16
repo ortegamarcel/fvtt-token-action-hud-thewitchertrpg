@@ -61,7 +61,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const zoomableOptions = new ItemFilterOptions(FilterFn.bySystemProp('clickableImage', true), ACTION_TYPE.zoom, false);
             this._getItems(actor, token.id, { id: GROUP.zoomableItems.id, type: 'system' }, zoomableOptions);
             if (Utils.getSetting('showQuestItems')) {
-                const questItemOptions = new ItemFilterOptions(FilterFn.byTypeAndSubtype('valuable', 'quest-item'), ACTION_TYPE.show, false);
+                const questItemOptions = new ItemFilterOptions(item => !item.system.clickableImage && FilterFn.byTypeAndSubtype('valuable', 'quest-item')(item), ACTION_TYPE.show, false);
                 this._getItems(actor, token.id, { id: GROUP.zoomableItems.id, type: 'system' }, questItemOptions);
             }
             const consumableOptions = new ItemFilterOptions(FilterFn.byTypeAndSubtype('valuable', 'food-drink'));
