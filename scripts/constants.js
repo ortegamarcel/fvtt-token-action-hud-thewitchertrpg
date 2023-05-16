@@ -139,7 +139,7 @@ export const SKILL = {
         courage: { stat: 'will', active: true, name: 'WITCHER.SkWillCourage', statNum: 6, skillNum: 0 },
         hexweave: { stat: 'will', active: false, name: 'WITCHER.SkWillHex', statNum: 6, skillNum: 1 },
         intimidation: { stat: 'will', active: true, name: 'WITCHER.SkWillIntim', statNum: 6, skillNum: 2 },
-        spellcast: { stat: 'will', active: false, name: 'WITCHER.SkWillSpellcast', statNum: 6, skillNum: 3 },
+        spellcast: { stat: 'will', active: true, name: 'WITCHER.SkWillSpellcast', statNum: 6, skillNum: 3 },
         resistmagic: { stat: 'will', active: true, name: 'WITCHER.SkWillResistMag', statNum: 6, skillNum: 4 },
         resistcoerc: { stat: 'will', active: true, name: 'WITCHER.SkWillResistCoer', statNum: 6, skillNum: 5 },
         ritcraft: { stat: 'will', active: false, name: 'WITCHER.SkWillRitCraft', statNum: 6, skillNum: 6 },
