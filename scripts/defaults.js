@@ -1,4 +1,4 @@
-import { GROUP } from './constants.js'
+import { GROUP, GWENT_MODULE, MODULE } from './constants.js'
 
 /**
  * Default categories and groups
@@ -75,5 +75,19 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             }
         ],
         groups: groupsArray
+    }
+
+    if (game.modules.get(GWENT_MODULE.ID)?.active) {
+        console.log(`${MODULE.ID} | Gwen't - The Dice Game Module installed`);
+        console.log(`${MODULE.ID} | Initialize Gwen't Actions`);
+        DEFAULTS.layout.push({
+            nestId: 'gwent',
+            id: 'gwent',
+            name: game.settings.get(GWENT_MODULE.ID, GWENT_MODULE.SETTINGS.GAME_NAME),
+            groups: [
+                { ...groups.gwentDecks, nestId: 'gwent_decks' },
+                { ...groups.gwentBoards, nestId: 'gwent_boards' },
+            ]
+        });
     }
 });
