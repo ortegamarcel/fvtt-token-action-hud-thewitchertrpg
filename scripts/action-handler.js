@@ -1,4 +1,5 @@
 import { ACTION_TYPE, GROUP, ICON } from "./constants.js";
+import { FilterFn, ItemFilterOptions } from "./types.js";
 import { Utils } from "./utils.js";
 
 export let ActionHandler = null;
@@ -20,9 +21,12 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 return;
             }
 
+            // Combat
             this._getAttacks(actor, token.id, { id: GROUP.attack.id, type: 'system' });
             this._getDefense(actor, token.id, { id: GROUP.defense.id, type: 'system' });
             this._getSpecialActions(actor, token.id, { id: GROUP.specialActions.id, type: 'system' });
+
+            // Skills
             if (Utils.getSetting('showSkillCategories')) {
                 this._getSkills(skillSettings.int, actor, token.id, { id: GROUP.intSkills.id, type: 'system' });
                 this._getSkills(skillSettings.ref, actor, token.id, { id: GROUP.refSkills.id, type: 'system' });
@@ -42,17 +46,34 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     ...skillSettings.will
                 }, actor, token.id, { id: GROUP.allSkills.id, type: 'system' });
             }
+
+            // Profession Skills
             this._getProfessionSkills(actor, token.id, { id: GROUP.professionSkills.id, type: 'system' });
+
+            // Magic
             this._getMagic('Spells', actor, token.id, { id: GROUP.spells.id, type: 'system' });
             this._getMagic('Invocations', actor, token.id, { id: GROUP.invocations.id, type: 'system' });
             this._getMagic('Witcher', actor, token.id, { id: GROUP.signs.id, type: 'system' });
             this._getMagic('Rituals', actor, token.id, { id: GROUP.rituals.id, type: 'system' });
             this._getMagic('Hexes', actor, token.id, { id: GROUP.hexes.id, type: 'system' });
-            this._getItem('valuable', 'food-drink', actor, token.id, { id: GROUP.foodAndDrinks.id, type: 'system' });
-            this._getItem('valuable', 'alchemical-item', actor, token.id, { id: GROUP.alchemicalItems.id, type: 'system' });
-            this._getItem('alchemical', 'oil', actor, token.id, { id: GROUP.oils.id, type: 'system' });
-            this._getItem('alchemical', 'potion', actor, token.id, { id: GROUP.potions.id, type: 'system' });
-            this._getItem('alchemical', 'decoction', actor, token.id, { id: GROUP.decoctions.id, type: 'system' });
+
+            // Inventory
+            const zoomableOptions = new ItemFilterOptions(FilterFn.bySystemProp('clickableImage', true), ACTION_TYPE.zoom, false);
+            this._getItems(actor, token.id, { id: GROUP.zoomableItems.id, type: 'system' }, zoomableOptions);
+            if (Utils.getSetting('showQuestItems')) {
+                const questItemOptions = new ItemFilterOptions(item => !item.system.clickableImage && FilterFn.byTypeAndSubtype('valuable', 'quest-item')(item), ACTION_TYPE.show, false);
+                this._getItems(actor, token.id, { id: GROUP.zoomableItems.id, type: 'system' }, questItemOptions);
+            }
+            const consumableOptions = new ItemFilterOptions(FilterFn.byTypeAndSubtype('valuable', 'food-drink'));
+            this._getItems(actor, token.id, { id: GROUP.foodAndDrinks.id, type: 'system' }, consumableOptions);
+            consumableOptions.filterFn = FilterFn.byTypeAndSubtype('valuable', 'alchemical-item');
+            this._getItems(actor, token.id, { id: GROUP.alchemicalItems.id, type: 'system' }, consumableOptions);
+            consumableOptions.filterFn = FilterFn.byTypeAndSubtype('alchemical', 'oil');
+            this._getItems(actor, token.id, { id: GROUP.oils.id, type: 'system' }, consumableOptions);
+            consumableOptions.filterFn = FilterFn.byTypeAndSubtype('alchemical', 'potion');
+            this._getItems(actor, token.id, { id: GROUP.potions.id, type: 'system' }, consumableOptions);
+            consumableOptions.filterFn = FilterFn.byTypeAndSubtype('alchemical', 'decoction');
+            this._getItems(actor, token.id, { id: GROUP.decoctions.id, type: 'system' }, consumableOptions);
 
             
             //if (settings.get("showHudTitle")) result.hudTitle = token.name;
@@ -216,14 +237,22 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             this.addActions(actions, parent);
         }
 
-        _getItem(type, subType, actor, tokenId, parent) {
+        /**
+         * Creates actions out of actor items.
+         * @param {ItemFilterOptions} options 
+         */
+        _getItems(actor, tokenId, parent, options) {
+            if (!options?.filterFn) {
+                console.error('Cannot get item actions without a filter.');
+                return;
+            }
             const actions = actor.items
-                .filter(item => item.type == type && item.system.type == subType && item.system.quantity >= 1)
+                .filter(options.filterFn)
                 .map(item => ({
                     id: item.id,
-                    name: `${item.name} ${item.system.quantity}`,
+                    name: options.showQuantity ? `${item.system.quantity}x ${item.name}` : item.name,
                     img: Utils.getImage(item),
-                    encodedValue: [ACTION_TYPE.consume, actor.id, tokenId, item.id].join(this.delimiter)
+                    encodedValue: [options.actionType, actor.id, tokenId, item.id].join(this.delimiter)
                 }));
             this.addActions(actions, parent);
         }

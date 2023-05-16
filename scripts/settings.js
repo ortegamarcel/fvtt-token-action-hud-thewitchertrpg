@@ -101,4 +101,14 @@ export const registerSettings = function() {
         type: Boolean,
         default: true
     });
+
+    game.settings.register(MODULE.ID, 'showQuestItems', {
+        name: Utils.i18n('TAH_WITCHER.Settings.showQuestItems'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.showQuestItemsHint'),
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: true,
+        onChange
+    });
 }
