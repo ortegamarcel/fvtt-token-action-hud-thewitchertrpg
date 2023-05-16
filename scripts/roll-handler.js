@@ -143,7 +143,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 label: verb,
                 callback: async () => {
                     const quantity = item.system.quantity;
-                    if (quantity > 1) {
+                    if (quantity > 1 || isFoodOrDring) {
                         await item.update({ system: { quantity: quantity - 1 } });
                     } else {
                         await actor.deleteEmbeddedDocuments('Item', [item.id]);
