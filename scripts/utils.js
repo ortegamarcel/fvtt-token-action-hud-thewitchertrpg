@@ -1,4 +1,4 @@
-import { MODULE } from './constants.js'
+import { MODULE, DSN_MODULE } from './constants.js'
 
 export let Utils = null
 
@@ -74,6 +74,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             }
         
             return mergeDeep(target, ...sources);
+        }
+
+        static async waitForDiceAnimationToFinish() {
+            if (game.modules.get(DSN_MODULE.ID)?.active) {
+                const animationDuration = 2000;
+                return new Promise(res => setTimeout(res, animationDuration));
+            } else {
+                return Promise.resolve();
+            }
         }
     }
 })
