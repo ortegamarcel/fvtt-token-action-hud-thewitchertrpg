@@ -13,6 +13,13 @@ export const CORE_MODULE = {
 };
 
 /**
+ * Dice so Nice Module
+ */
+export const DSN_MODULE = {
+    ID: 'dice-so-nice'
+};
+
+/**
  * Core module version required by the system module
  */
 export const REQUIRED_CORE_MODULE_VERSION = '1.4';

@@ -19,6 +19,8 @@
         "noDetailsAvailable": "There are no detailed information available for this item.",
         "zoomableItems": "Interesting Items",
         "Settings": {
+            "rollSkillsNatively": "Roll Skills Natively",
+            "rollSkillsNativelyHint": "If checked, it will use the Systems exposed method for rolling skills. This only works with version 'v0.97-alpha.4' and higher. It will use a fallback method if you are using an incompable version.",
             "sortSkillsAlphabetically": "Sort Skills",
             "sortSkillsAlphabeticallyHint": "If checked, all skills are sorted from A to Z within their category.",
             "showSkillCategories": "Categorize Skills",
@@ -43,7 +45,7 @@
             "save": "Save",
             "deselectAll": "Deselect All",
             "selectAll": "Select All",
-            "showToAll": "Show Consumables to everyone",
+            "showToAll": "Public Consume-Messages",
             "showToAllHint": "If checked, everyone will be shown a chat message when someone consumes a item. Otherwise, only the consumer and the gamemaster can see it.",
             "showQuestItems": "Show Quest Items",
             "showQuestItemsHint": "If checked, quest items will appear under \"Interesting Items\". Quest Items do only exist in The Witcher TRPG v0.97-alpha.4 or higher.",

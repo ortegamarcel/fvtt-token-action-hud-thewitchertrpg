@@ -6,7 +6,7 @@ function onChange(value) {
     Hooks.callAll('forceUpdateTokenActionHud');
 }
 
-export const registerSettings = function() {
+export const registerSettings = function(compatibleSystem) {
     game.settings.registerMenu(MODULE.ID, "skillSettingsMenu", {
         name: Utils.i18n('TAH_WITCHER.Settings.skillSettings'),
         label: Utils.i18n('TAH_WITCHER.Settings.skillSettingsLabel'),
@@ -21,6 +21,16 @@ export const registerSettings = function() {
         config: false,
         type: Object,
         default: SKILL,
+        onChange
+    });
+
+    game.settings.register(MODULE.ID, 'rollSkillsNatively', {
+        name: Utils.i18n('TAH_WITCHER.Settings.rollSkillsNatively'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.rollSkillsNativelyHint'),
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: compatibleSystem,
         onChange
     });
 
@@ -108,7 +118,7 @@ export const registerSettings = function() {
         scope: 'world',
         config: true,
         type: Boolean,
-        default: true,
+        default: compatibleSystem,
         onChange
     });
 

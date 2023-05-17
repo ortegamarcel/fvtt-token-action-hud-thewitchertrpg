@@ -16,14 +16,14 @@ Hooks.on('tokenActionHudCoreApiReady', async () => {
         requiredCoreModuleVersion: REQUIRED_CORE_MODULE_VERSION,
         SystemManager
     }
+    const version = game.system.version;
+    const alphaVersion = Number('v0.96-alpha.1'.split('-alpha.')?.[1] ?? -1);
 
     preloadHandlebarsTemplates();
-    registerSettings();
+    registerSettings(alphaVersion >= 4);
     Hooks.call('tokenActionHudSystemReady', module);
 
     const showUnsupportedSystemMessage = Utils.getSetting('showUnsupportedSystemMessage');
-    const version = game.system.version;
-    const alphaVersion = Number('v0.96-alpha.1'.split('-alpha.')?.[1] ?? -1);
     if (game.user.isGM && alphaVersion < 4 && showUnsupportedSystemMessage) {
         new Dialog({
             title: Utils.i18n('TAH_WITCHER.UnsupportedVersion.title'),
