@@ -46,7 +46,9 @@
             "showToAll": "Zeige Verbrauchsgegenstände allen an",
             "showToAllHint": "Wenn aktiviert, wird allen eine Chat Nachricht angezeigt, wenn jemand einen Verbrauchsgegenstand konsumiert. Ansonsten, kann es nur der Verbraucher und der Spielleiter sehen.",
             "showQuestItems": "Questgegenstände anzeigen",
-            "showQuestItemsHint": "Wenn aktiviert, werden Quest-Gegenstände unter \"Interessante Gegenstände\" angezeigt. Quest-Gegenstände existieren nur in The Witcher TRPG v0.97-alpha.4 oder höher."
+            "showQuestItemsHint": "Wenn aktiviert, werden Quest-Gegenstände unter \"Interessante Gegenstände\" angezeigt. Quest-Gegenstände existieren nur in The Witcher TRPG v0.97-alpha.4 oder höher.",
+            "showUnsupportedSystemMessage": "Zeige Hinweis beim Start",
+            "showUnsupportedSystemMessageHint": "Wenn aktiviert, wird dem SL beim Start eine Benachrichtigung angezeigt, falls die installierte System Version nicht vollständig mit diesem Modul kompatibel ist."
         },
         "Chat": {
             "actorConsumedOil": "Ich habe ein Klingenöl auf meine Waffe aufgetragen!",
@@ -54,6 +56,12 @@
             "actorConsumedPotion": "Ich habe einen Hexer-Trank getrunken!",
             "actorConsumedDecoction": "Ich habe eine Hexer-Mixtur getrunken!",
             "actorConsumedFoodOrDrink": "Ich habe etwas verzehrt!"
+        },
+        "UnsupportedVersion": {
+            "dontShowAgain": "Nicht wieder anzeigen",
+            "ignore": "Ignorieren",
+            "title": "System Version nicht vollständig kompatibel",
+            "content": "<p>Einige Funktionen von <strong>Token Action HUD The Witcher TRPG</strong> funktionieren möglicherweise nicht ordnungsgemäß mit deiner aktuellen System Version '%version'. Daher empfehle ich, die Version <a href=\"https://github.com/ortegamarcel/TheWitcherTRPG/wiki\" target=\"_blank\"><strong>v0.97-alpha.4</strong></a> oder höher zu installieren. Den Installationsleitfaden findest du <a href=\"https://github.com/ortegamarcel/TheWitcherTRPG/wiki/Installation-Guide\" target=\"_blank\">hier</a>.</p><p>Zu den Funktionen, die nicht richtig oder gar nicht funktionieren, gehören:</p><ul><li>Es gibt keine Quest-Gegenstände</li><li>Bilder von Gegenständen im Inventar können nicht vergrößert angezeigt werden</li><li>Fertigkeiten werden nicht nativ gewürfelt</li></ul>"
         }
     }
 }

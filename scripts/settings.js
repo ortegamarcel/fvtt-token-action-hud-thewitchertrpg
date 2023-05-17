@@ -111,4 +111,13 @@ export const registerSettings = function() {
         default: true,
         onChange
     });
+
+    game.settings.register(MODULE.ID, 'showUnsupportedSystemMessage', {
+        name: Utils.i18n('TAH_WITCHER.Settings.showUnsupportedSystemMessage'),
+        hint: Utils.i18n('TAH_WITCHER.Settings.showUnsupportedSystemMessageHint'),
+        scope: 'client',
+        config: true,
+        type: Boolean,
+        default: true
+    });
 }

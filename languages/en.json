@@ -46,7 +46,9 @@
             "showToAll": "Show Consumables to everyone",
             "showToAllHint": "If checked, everyone will be shown a chat message when someone consumes a item. Otherwise, only the consumer and the gamemaster can see it.",
             "showQuestItems": "Show Quest Items",
-            "showQuestItemsHint": "If checked, quest items will appear under \"Interesting Items\". Quest Items do only exist in The Witcher TRPG v0.97-alpha.4 or higher."
+            "showQuestItemsHint": "If checked, quest items will appear under \"Interesting Items\". Quest Items do only exist in The Witcher TRPG v0.97-alpha.4 or higher.",
+            "showUnsupportedSystemMessage": "Show Notification at the Start",
+            "showUnsupportedSystemMessageHint": "If checked, the GM will be notified upon startup if the installed system version is not fully compatible with this module."
         },
         "Chat": {
             "actorConsumedOil": "I have applied a blade coating to my weapon!",
@@ -54,6 +56,12 @@
             "actorConsumedPotion": "I have consumed a Witcher potion!",
             "actorConsumedDecoction": "I have consumed a Witcher decoction!",
             "actorConsumedFoodOrDrink": "I have consumed something!"
+        },
+        "UnsupportedVersion": {
+            "dontShowAgain": "Don't Show Again",
+            "ignore": "Ignore",
+            "title": "System version not fully compatible",
+            "content": "<p>Some features of <strong>Token Action HUD The Witcher TRPG</strong> may not work properly with your current system version '%version'. Therefore, I recommend installing version <a href=\"https://github.com/ortegamarcel/TheWitcherTRPG/wiki\" target=\"_blank\"><strong>v0.97-alpha.4</strong></a> or higher. You can find the installation guide <a href=\"https://github.com/ortegamarcel/TheWitcherTRPG/wiki/Installation-Guide\" target=\"_blank\">here</a>.</p><p>The features that do not work correctly or at all include:</p><ul><li>There are no quest items</li><li>Images of items in the inventory cannot be displayed enlarged</li><li>Skills are not rolled natively</li></ul>"
         }
     }
 }
