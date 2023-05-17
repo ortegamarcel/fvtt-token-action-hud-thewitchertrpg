@@ -100,11 +100,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     try {
                         actor.sheet._onItemShow(_event);
                     } catch (e) {
-                        this._showDescription(item.name, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, null);
+                        this._showDescription(item.name, `${this._getDefaultItemDescription(item, true)}`, null);
                     }
                     break;
                 case ACTION_TYPE.show:
-                    this._showDescription(item.name, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, null);
+                    this._showDescription(item.name, `${this._getDefaultItemDescription(item, true)}`, null);
                     break;
                 default:
                     console.warn(`${MODULE.ID}: Unknown action "${action}"`);
@@ -182,7 +182,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     let content = `<h3>${title}</h3>`;
                     content += `<div style="${style}"><img src="${Utils.getImage(item)}" alt="Item" width="40px">1x ${item.name}</div>`;
                     if (item.system.description || item.system.effect) {
-                        content += `<div style="${descriptionStyle}">${item.system.description || item.system.effect}</div>`
+                        content += `<div style="${descriptionStyle}">${this._getDefaultItemDescription(item, false)}</div>`
                     }
 
                     const showToAll = Utils.getSetting('showToAll');
@@ -199,7 +199,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     }
                 }
             }
-            await this._showDescription(title, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, consumeBtn);
+            await this._showDescription(title, this._getDefaultItemDescription(item, true), consumeBtn);
 
             Hooks.callAll('forceUpdateTokenActionHud');
         }
@@ -282,6 +282,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 rollResult = await new Roll(formula).evaluate({ async: true });
                 await rollResult.toMessage(options);
             }
+        }
+
+        _getDefaultItemDescription(item, includeImg) {
+            const style = 'float: left; width: 50px; max-height: 50px; margin-right: 5px;';
+            const pStyle = 'display: block; margin: 0 0 5px 0; min-height: 50px;';
+            const img = includeImg
+                ? `<img src="${Utils.getImage(item)}" style="${style}">`
+                : '';
+            return `<p style="${pStyle}">${img}${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`;
         }
     }
 });
