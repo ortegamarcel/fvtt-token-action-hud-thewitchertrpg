@@ -52,6 +52,12 @@
             "actorConsumedPotion": "I have consumed a Witcher potion!",
             "actorConsumedDecoction": "I have consumed a Witcher decoction!",
             "actorConsumedFoodOrDrink": "I have consumed something!"
+        },
+        "Gwent": {
+            "decks": "Decks",
+            "gameBoards": "Game Boards",
+            "open": "Open",
+            "playWith": "Play with"
         }
     }
 }

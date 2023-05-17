@@ -1,4 +1,4 @@
-import { ACTION_TYPE, GROUP, ICON } from "./constants.js";
+import { ACTION_TYPE, GROUP, GWENT_MODULE, ICON } from "./constants.js";
 import { FilterFn, ItemFilterOptions } from "./types.js";
 import { Utils } from "./utils.js";
 
@@ -75,6 +75,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             consumableOptions.filterFn = FilterFn.byTypeAndSubtype('alchemical', 'decoction');
             this._getItems(actor, token.id, { id: GROUP.decoctions.id, type: 'system' }, consumableOptions);
 
+            if (game.modules.get(GWENT_MODULE.ID)?.active) {
+                this._getGwentDecks(actor, token.id, { id: GROUP.gwentDecks.id, type: 'system' });
+                this._getGwentBoards(actor, token.id, { id: GROUP.gwentBoards.id, type: 'system' });
+            }
             
             //if (settings.get("showHudTitle")) result.hudTitle = token.name;
         }
@@ -255,6 +259,29 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     encodedValue: [options.actionType, actor.id, tokenId, item.id].join(this.delimiter)
                 }));
             this.addActions(actions, parent);
+        }
+
+        async _getGwentDecks(actor, tokenId, parent) {
+            const actions = actor.items
+                .filter(item => item.flags[GWENT_MODULE.ID]?.initialized && item.flags[GWENT_MODULE.ID]?.data?.isComplete)
+                .map(item => ({
+                    id: item.id,
+                    name: `${Utils.i18n('TAH_WITCHER.Gwent.playWith')} ${item.name}`,
+                    img: Utils.getImage(item),
+                    encodedValue: [ACTION_TYPE.playGwent, actor.id, tokenId, item.id].join(this.delimiter)
+                }));
+            this.addActions(actions, parent);
+        }
+
+        async _getGwentBoards(actor, tokenId, parent) {
+            const boardId = game.settings.get(GWENT_MODULE.ID, GWENT_MODULE.SETTINGS.BOARD_ID);
+            const board = game.actors.get(boardId);
+            this.addActions([{
+                id: boardId,
+                name: `${Utils.i18n('TAH_WITCHER.Gwent.open')} ${board.name}`,
+                img: board.img,
+                encodedValue: [ACTION_TYPE.showGwentBoard, actor.id, tokenId, boardId].join(this.delimiter)
+            }], parent);
         }
     }
 });

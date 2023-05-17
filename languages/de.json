@@ -52,6 +52,12 @@
             "actorConsumedPotion": "Ich habe einen Hexer-Trank getrunken!",
             "actorConsumedDecoction": "Ich habe eine Hexer-Mixtur getrunken!",
             "actorConsumedFoodOrDrink": "Ich habe etwas verzehrt!"
+        },
+        "Gwent": {
+            "decks": "Decks",
+            "gameBoards": "Spielbretter",
+            "open": "Öffne",
+            "playWith": "Spiele mit"
         }
     }
 }
