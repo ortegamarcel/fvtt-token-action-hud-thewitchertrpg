@@ -1,4 +1,4 @@
-import { ACTION_TYPE, MODULE, SKILL } from "./constants.js";
+import { ACTION_TYPE, GWENT_MODULE, MODULE, SKILL } from "./constants.js";
 import { Utils } from "./utils.js";
 
 export let RollHandler = null
@@ -21,6 +21,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             let itemId = args?.[0];
             const item = actor.items.get(itemId);
             let _event;
+            let boardId;
                 
             switch (action) {
                 case ACTION_TYPE.attack:
@@ -105,6 +106,18 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     break;
                 case ACTION_TYPE.show:
                     this._showDescription(item.name, `${this._getDefaultItemDescription(item, true)}`, null);
+                    break;
+                case ACTION_TYPE.playGwent:
+                    boardId = item.flags[GWENT_MODULE.ID].boardId;
+                    if (boardId) {
+                        game.actors.get(boardId).sheet.render(true);
+                    } else {
+                        item.sheet.joinGame();
+                    }
+                    break;
+                case ACTION_TYPE.showGwentBoard:
+                    boardId = itemId;
+                    game.actors.get(boardId).sheet.render(true);
                     break;
                 default:
                     console.warn(`${MODULE.ID}: Unknown action "${action}"`);
