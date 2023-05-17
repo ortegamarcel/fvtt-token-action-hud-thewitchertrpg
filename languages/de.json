@@ -20,7 +20,7 @@
         "zoomableItems": "Interessante Gegenstände",
         "Settings": {
             "sortSkillsAlphabetically": "Fertigkeiten sortieren",
-            "sortSkillsAlphabeticallyHint": "Wenn angekreuzt, werden alle Fertigkeiten innerhalb ihrer Kategorie von A nach Z sortiert.",
+            "sortSkillsAlphabeticallyHint": "Wenn aktiviert, werden alle Fertigkeiten innerhalb ihrer Kategorie von A nach Z sortiert.",
             "showSkillCategories": "Fertigkeiten Kategorisieren",
             "showSkillCategoriesHint": "Wenn angekreuz, werden alle Fertigkeiten in ihrer entsprechenden Grundattribut-Kategorie angezeigt. Ansonstent werden sie alle nebeneinander angezeigt.",
             "showSkillSuffix": "Fertigkeiten Suffix anzeigen",
@@ -33,7 +33,7 @@
             "skillSuffixSkillpoints": "Skillpunkte",
             "skillSuffixBasevalue": "Basiswert",
             "showMagicStaCost": "Zeige AUS-Kosten an",
-            "showMagicStaCostHint": "Wenn angekreuzt, werden hinter allen Zaubersprüchen die Ausdauer Kosten angezeigt.",
+            "showMagicStaCostHint": "Wenn aktiviert, werden hinter allen Zaubersprüchen die Ausdauer Kosten angezeigt.",
             "magicVarStaCostLabel": "Zeichen für variable AUS-Kosten",
             "magicVarStaCostLabelHint": "Wenn AUS-Kosten angezeigt werden, ist das die Zeichenkette die hinter Zaubern mit variablen Kosten angezeigt wird. Lasse es leer, damit nichts angezeigt wird.",
             "skillSettings": "Fertigkeiten Anzeige",
@@ -44,7 +44,9 @@
             "deselectAll": "Alle Abwählen",
             "selectAll": "Alle Auswählen",
             "showToAll": "Zeige Verbrauchsgegenstände allen an",
-            "showToAllHint": "Wenn angekreuzt, wird allen eine Chat Nachricht angezeigt, wenn jemand einen Verbrauchsgegenstand konsumiert. Ansonsten, kann es nur der Verbraucher und der Spielleiter sehen."
+            "showToAllHint": "Wenn aktiviert, wird allen eine Chat Nachricht angezeigt, wenn jemand einen Verbrauchsgegenstand konsumiert. Ansonsten, kann es nur der Verbraucher und der Spielleiter sehen.",
+            "showQuestItems": "Questgegenstände anzeigen",
+            "showQuestItemsHint": "Wenn aktiviert, werden Quest-Gegenstände unter \"Interessante Gegenstände\" angezeigt. Quest-Gegenstände existieren nur in The Witcher TRPG v0.97-alpha.4 oder höher."
         },
         "Chat": {
             "actorConsumedOil": "Ich habe ein Klingenöl auf meine Waffe aufgetragen!",

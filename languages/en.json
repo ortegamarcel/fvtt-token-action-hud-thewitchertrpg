@@ -44,7 +44,9 @@
             "deselectAll": "Deselect All",
             "selectAll": "Select All",
             "showToAll": "Show Consumables to everyone",
-            "showToAllHint": "If checked, everyone will be shown a chat message when someone consumes a item. Otherwise, only the consumer and the gamemaster can see it."
+            "showToAllHint": "If checked, everyone will be shown a chat message when someone consumes a item. Otherwise, only the consumer and the gamemaster can see it.",
+            "showQuestItems": "Show Quest Items",
+            "showQuestItemsHint": "If checked, quest items will appear under \"Interesting Items\". Quest Items do only exist in The Witcher TRPG v0.97-alpha.4 or higher."
         },
         "Chat": {
             "actorConsumedOil": "I have applied a blade coating to my weapon!",
