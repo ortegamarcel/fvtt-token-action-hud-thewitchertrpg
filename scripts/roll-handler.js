@@ -88,7 +88,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     break;
                 case ACTION_TYPE.zoom:
                     _event = this._createDatasetEvent({ itemId });
-                    actor.sheet._onItemShow(_event);
+                    try {
+                        actor.sheet._onItemShow(_event);
+                    } catch (e) {
+                        this._showDescription(item.name, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, null);
+                    }
                     break;
                 case ACTION_TYPE.show:
                     this._showDescription(item.name, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, null);
