@@ -8,6 +8,7 @@ Token Action HUD is a repositionable HUD of actions for a selected token.
 - Roll Skills, Professions Skills, Attacks, Defense Actions, Magic and use Consumables directly from the HUD instead of opening your character sheet.
 - Right-Click skills, professions skills and spells from the HUD to see their description or effect.
 - Many customization options for you and your players, like deciding which skills should be shown and which not
+- Supports [Gwen't - The Dice Game](https://github.com/ortegamarcel/fvtt-gwent#gwent---the-dice-game-)
 - Check the [release notes](https://github.com/ortegamarcel/fvtt-token-action-hud-thewitchertrpg/releases) for more details
 
 # Installation
