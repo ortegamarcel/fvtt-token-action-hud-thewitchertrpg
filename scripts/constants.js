@@ -6,10 +6,28 @@ export const MODULE = {
 };
 
 /**
+ * Gwen't - The Dice Game Module
+ */
+export const GWENT_MODULE = {
+    ID: 'fvtt-gwent',
+    SETTINGS: {
+        GAME_NAME: 'gameName',
+        BOARD_ID: 'boardId'
+    }
+};
+
+/**
  * Core module
  */
 export const CORE_MODULE = {
     ID: 'token-action-hud-core'
+};
+
+/**
+ * Dice so Nice Module
+ */
+export const DSN_MODULE = {
+    ID: 'dice-so-nice'
 };
 
 /**
@@ -40,6 +58,8 @@ export const ACTION_TYPE = {
     consume: 'consume',
     zoom: 'zoom',
     show: 'show',
+    playGwent: 'play_gwent',
+    showGwentBoard: 'show_gwent_board',
 };
 
 export const GROUP = {
@@ -75,6 +95,10 @@ export const GROUP = {
     potions: { id: 'potions', name: 'TAH_WITCHER.potions', type: 'system' },
     decoctions: { id: 'decoctions', name: 'TAH_WITCHER.decoctions', type: 'system' },
     oils: { id: 'oils', name: 'WITCHER.Inventory.Oils', type: 'system' },
+
+    // Gwen't - The Dice Game
+    gwentDecks: { id: 'gwent-decks', name: 'TAH_WITCHER.Gwent.decks', type: 'system' },
+    gwentBoards: { id: 'gwent-boards', name: 'TAH_WITCHER.Gwent.gameBoards', type: 'system' },
 };
 
 export const SKILL = {

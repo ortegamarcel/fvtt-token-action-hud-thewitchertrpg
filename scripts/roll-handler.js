@@ -1,11 +1,11 @@
-import { ACTION_TYPE, MODULE } from "./constants.js";
+import { ACTION_TYPE, GWENT_MODULE, MODULE, SKILL } from "./constants.js";
 import { Utils } from "./utils.js";
 
 export let RollHandler = null
 
 Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
     RollHandler = class RollHandler extends coreModule.api.RollHandler {
-        doHandleActionEvent(event, encodedValue) {
+        async doHandleActionEvent(event, encodedValue) {
             let payload = encodedValue.split(this.delimiter);
 
             if (payload.length < 3) {
@@ -21,6 +21,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             let itemId = args?.[0];
             const item = actor.items.get(itemId);
             let _event;
+            let boardId;
                 
             switch (action) {
                 case ACTION_TYPE.attack:
@@ -52,7 +53,16 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 case ACTION_TYPE.skill:
                     const statNum = Number(args[0]);
                     const skillNum = Number(args[1]);
-                    actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
+                    try {
+                        if (Utils.getSetting('rollSkillsNatively')) {
+                            // This will throw an error, if the system does not expose this method (which is the case in v0.96 and lower).
+                            actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
+                        } else {
+                            await this._backupSkillRoll(actor, statNum, skillNum);
+                        }
+                    } catch (e) {
+                        await this._backupSkillRoll(actor, statNum, skillNum);
+                    }
                     break;
                 case ACTION_TYPE.professionSkill:
                     const skillName = args[0];
@@ -88,10 +98,26 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     break;
                 case ACTION_TYPE.zoom:
                     _event = this._createDatasetEvent({ itemId });
-                    actor.sheet._onItemShow(_event);
+                    try {
+                        actor.sheet._onItemShow(_event);
+                    } catch (e) {
+                        this._showDescription(item.name, `${this._getDefaultItemDescription(item, true)}`, null);
+                    }
                     break;
                 case ACTION_TYPE.show:
-                    this._showDescription(item.name, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, null);
+                    this._showDescription(item.name, `${this._getDefaultItemDescription(item, true)}`, null);
+                    break;
+                case ACTION_TYPE.playGwent:
+                    boardId = item.flags[GWENT_MODULE.ID].boardId;
+                    if (boardId) {
+                        game.actors.get(boardId).sheet.render(true);
+                    } else {
+                        item.sheet.joinGame();
+                    }
+                    break;
+                case ACTION_TYPE.showGwentBoard:
+                    boardId = itemId;
+                    game.actors.get(boardId).sheet.render(true);
                     break;
                 default:
                     console.warn(`${MODULE.ID}: Unknown action "${action}"`);
@@ -169,7 +195,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     let content = `<h3>${title}</h3>`;
                     content += `<div style="${style}"><img src="${Utils.getImage(item)}" alt="Item" width="40px">1x ${item.name}</div>`;
                     if (item.system.description || item.system.effect) {
-                        content += `<div style="${descriptionStyle}">${item.system.description || item.system.effect}</div>`
+                        content += `<div style="${descriptionStyle}">${this._getDefaultItemDescription(item, false)}</div>`
                     }
 
                     const showToAll = Utils.getSetting('showToAll');
@@ -186,7 +212,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     }
                 }
             }
-            await this._showDescription(title, `<p>${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`, consumeBtn);
+            await this._showDescription(title, this._getDefaultItemDescription(item, true), consumeBtn);
 
             Hooks.callAll('forceUpdateTokenActionHud');
         }
@@ -216,6 +242,68 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     closest: () => ({ dataset })
                 }
             }
+        }
+
+        /** Fallback method when using TheWitcherTRPG v0.96 or older, since it doesn't expose the `_onSkillRoll`-Method. */
+        async _backupSkillRoll(actor, statNum, skillNum) {
+            const skills = Object.values(SKILL).map(skillSet => Object.entries(skillSet).map(([id, skill]) => ({ ...skill, id }))).flat();
+            const skill = skills.find(skill => skill.statNum == statNum &&  skill.skillNum == skillNum);
+            const actorSkill = actor.system.skills[skill.stat]?.[skill.id];
+            if (!actorSkill) {
+                console.error(`${MODULE.ID} | Could not find skill [${statNum}, ${skillNum}]`);
+                return;
+            }
+            const statValue = actor.system.stats[skill.stat].current;
+            const skillpoints = actorSkill.value;
+            let formula = `1d10+${statValue}[Stat]+${skillpoints}[skill]`;
+            actorSkill.modifiers.forEach(({ name, value }) => formula += `+${value}[${name}]`);
+
+            this._rollD10(formula, Utils.i18n(skill.name));
+        }
+
+        /** 
+         * Rolls one die (dX) or formula that will crit on highest value and fumble on 1.
+         * @param {string} formula a formula that begins with 1dX, while X can be any number. Defaults to 1d10.
+         * @param {string} flavor text that is shown in the chat message
+         */
+        async _rollD10(formula, flavor) {
+            formula = formula || '1d10';
+            const max = formula.match(/^1d(\d+)/)[1];
+            if (!max) {
+                console.error(`${MODULE.ID} | Cannot roll '${formula}'`);
+            }
+
+            let rollResult = await new Roll(formula).evaluate({ async: true });
+            const result = rollResult.dice[0].results[0].result;
+            const options = {};
+            if (flavor) {
+                options.flavor = flavor;
+            }
+            if (result == max) {
+                options.flavor = flavor ? `${options.flavor} (${Utils.i18n("WITCHER.Crit")})` : Utils.i18n("WITCHER.Crit");
+            } else if (result == 1) {
+                options.flavor = flavor ? `${options.flavor} (${Utils.i18n("WITCHER.Fumble")})` : Utils.i18n("WITCHER.Fumble");
+            }
+            const msg = await rollResult.toMessage(options);
+
+            if (result == 1 || result == max) {
+                msg.delete();
+                await Utils.waitForDiceAnimationToFinish();
+                formula = result == 1
+                    ? `1[${Utils.i18n("WITCHER.Dialog.ButtonRoll")}]+` + formula.split('+').slice(1).join('+') + `-1d${max}x${max}[${Utils.i18n("WITCHER.Fumble")}]`
+                    : `${max}[${Utils.i18n("WITCHER.Dialog.ButtonRoll")}]+` + formula.split('+').slice(1).join('+') + `+1d${max}x${max}[${Utils.i18n("WITCHER.Crit")}]`;
+                rollResult = await new Roll(formula).evaluate({ async: true });
+                await rollResult.toMessage(options);
+            }
+        }
+
+        _getDefaultItemDescription(item, includeImg) {
+            const style = 'float: left; width: 50px; max-height: 50px; margin-right: 5px;';
+            const pStyle = 'display: block; margin: 0 0 5px 0; min-height: 50px;';
+            const img = includeImg
+                ? `<img src="${Utils.getImage(item)}" style="${style}">`
+                : '';
+            return `<p style="${pStyle}">${img}${item.system.description || item.system.effect || Utils.i18n("TAH_WITCHER.noDetailsAvailable")}</p>`;
         }
     }
 });
