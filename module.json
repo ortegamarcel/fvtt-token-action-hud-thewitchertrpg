@@ -13,25 +13,21 @@
     "scripts/init.js"
   ],
   "relationships": {
-    "systems": [{
-      "id": "TheWitcherTRPG",
-      "type": "system",
-      "manifest": "https://github.com/AnthonyMonette/TheWitcherTRPG/releases/latest/download/system.json",
-      "compatibility": {
-        "verified": "0.96"
+    "systems": [
+      {
+        "id": "TheWitcherTRPG",
+        "type": "system",
+        "manifest": "https://github.com/AnthonyMonette/TheWitcherTRPG/releases/latest/download/system.json",
+        "compatibility": {
+          "verified": "0.97"
+        }
       }
-    }],
+    ],
     "requires": [
       {
         "id": "token-action-hud-core",
         "type": "module",
-        "compatibility": [
-          {
-            "minimum": "1.4.0",
-            "maximum": "1.4",
-            "verified": "1.4.0"
-          }
-        ]
+        "compatibility": {}
       }
     ]
   },
