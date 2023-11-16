@@ -36,6 +36,11 @@ export const DSN_MODULE = {
 export const REQUIRED_CORE_MODULE_VERSION = '1.4';
 
 /**
+ * The latest TheWitcherTRPG alpha version. (Will be recomended.)
+ */
+export const LATEST_THEWITCHERTRPG_ALPHA_VERSION = "v0.97-alpha.5";
+
+/**
  * <i>-tag icons
  */
 export const ICON = {
