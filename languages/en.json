@@ -63,7 +63,7 @@
             "dontShowAgain": "Don't Show Again",
             "ignore": "Ignore",
             "title": "System version not fully compatible",
-            "content": "<p>Some features of <strong>Token Action HUD The Witcher TRPG</strong> may not work properly with your current system version '%version'. Therefore, I recommend installing version <a href=\"https://github.com/ortegamarcel/TheWitcherTRPG/wiki\" target=\"_blank\"><strong>v0.97-alpha.4</strong></a> or higher. You can find the installation guide <a href=\"https://github.com/ortegamarcel/TheWitcherTRPG/wiki/Installation-Guide\" target=\"_blank\">here</a>.</p><p>The features that do not work correctly or at all include:</p><ul><li>There are no quest items</li><li>Images of items in the inventory cannot be displayed enlarged</li><li>Skills are not rolled natively</li></ul>"
+            "content": "<p>Some features of <strong>Token Action HUD The Witcher TRPG</strong> may not work properly with your current system version '%version'. Therefore, I recommend installing version <a href=\"https://github.com/ortegamarcel/TheWitcherTRPG/wiki\" target=\"_blank\"><strong>%alphaVersion</strong></a> or higher. You can find the installation guide <a href=\"https://github.com/ortegamarcel/TheWitcherTRPG/wiki/Installation-Guide\" target=\"_blank\">here</a>.</p><p>The features that do not work correctly or at all include:</p><ul><li>There are no quest items</li><li>Images of items in the inventory cannot be displayed enlarged</li><li>Skills are not rolled natively</li></ul>"
         },
         "Gwent": {
             "decks": "Decks",
