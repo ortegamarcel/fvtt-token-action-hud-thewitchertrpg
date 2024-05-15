@@ -146,7 +146,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             let actions = Object.entries(skillSet)
                 .filter(([id, skill]) => skill.active)
                 .map(([id, skill]) => {
-                    const encodedValue = [ACTION_TYPE.skill, actor.id, tokenId, skill.statNum, skill.skillNum].join(this.delimiter);
+                    let encodedValue;
+                    // Handling for Stexinators fork https://github.com/Stexinator/TheWitcherTRPG
+                    if(!CONFIG.WITCHER?.skillMap) {
+                       encodedValue = [ACTION_TYPE.skill, actor.id, tokenId, skill.statNum, skill.skillNum].join(this.delimiter);
+                    }
+                    else {
+                        encodedValue = [ACTION_TYPE.skill, actor.id, tokenId, id].join(this.delimiter);
+                    }
+                    
                     let name = Utils.i18n(skill.name).split('(')[0].trim();
                     
                     // Add suffix according on settings
