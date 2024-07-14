@@ -79,7 +79,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 this._getGwentDecks(actor, token.id, { id: GROUP.gwentDecks.id, type: 'system' });
                 this._getGwentBoards(actor, token.id, { id: GROUP.gwentBoards.id, type: 'system' });
             }
-            
+
             //if (settings.get("showHudTitle")) result.hudTitle = token.name;
         }
 
@@ -90,7 +90,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 .filter(item => {
                     const isWeapon = item.type == 'weapon';
                     const isReliable = item.system.reliable > 0;
-                    const isEquipped = item.system.equiped;
+                    const isEquipped = item.system.equiped || item.system.equipped;
                     const isAvailable = item.system.quantity > 0;
                     const isAmmo = item.system.isAmmo;
                     const usesAmmo = item.system.usingAmmo;
@@ -148,15 +148,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 .map(([id, skill]) => {
                     let encodedValue;
                     // Handling for Stexinators fork https://github.com/Stexinator/TheWitcherTRPG
-                    if(!CONFIG.WITCHER?.skillMap) {
-                       encodedValue = [ACTION_TYPE.skill, actor.id, tokenId, skill.statNum, skill.skillNum].join(this.delimiter);
+                    if (!CONFIG.WITCHER?.skillMap) {
+                        encodedValue = [ACTION_TYPE.skill, actor.id, tokenId, skill.statNum, skill.skillNum].join(this.delimiter);
                     }
                     else {
                         encodedValue = [ACTION_TYPE.skill, actor.id, tokenId, id].join(this.delimiter);
                     }
-                    
+
                     let name = Utils.i18n(skill.name).split('(')[0].trim();
-                    
+
                     // Add suffix according on settings
                     const showSuffix = Utils.getSetting('showSkillSuffix');
                     if (showSuffix != 'never') {
