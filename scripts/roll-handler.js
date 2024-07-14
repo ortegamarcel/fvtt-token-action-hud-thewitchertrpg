@@ -5,7 +5,7 @@ export let RollHandler = null
 
 Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
     RollHandler = class RollHandler extends coreModule.api.RollHandler {
-        async doHandleActionEvent(event, encodedValue) {
+        async handleActionClick(event, encodedValue) {
             let payload = encodedValue.split(this.delimiter);
 
             if (payload.length < 3) {
@@ -51,13 +51,13 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     }
                     break;
                 case ACTION_TYPE.skill:
+                    const statNum = Number(args[0]);
+                    const skillNum = Number(args[1]);
                     try {
                         if (Utils.getSetting('rollSkillsNatively')) {
                             // This will throw an error, if the system does not expose this method (which is the case in v0.96 and lower).
                             // Handling for Stexinators fork https://github.com/Stexinator/TheWitcherTRPG
                             if(!CONFIG.WITCHER?.skillMap) {
-                                const statNum = Number(args[0] );
-                                const skillNum = Number(args[1]);
                                 actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
                             } else {
                                 actor.sheet._onSkillRoll.call(actor.sheet, CONFIG.WITCHER.skillMap[args[0]]);
@@ -278,7 +278,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 console.error(`${MODULE.ID} | Cannot roll '${formula}'`);
             }
 
-            let rollResult = await new Roll(formula).evaluate({ async: true });
+            let rollResult = await new Roll(formula).evaluate();
             const result = rollResult.dice[0].results[0].result;
             const options = {};
             if (flavor) {
@@ -297,7 +297,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 formula = result == 1
                     ? `1[${Utils.i18n("WITCHER.Dialog.ButtonRoll")}]+` + formula.split('+').slice(1).join('+') + `-1d${max}x${max}[${Utils.i18n("WITCHER.Fumble")}]`
                     : `${max}[${Utils.i18n("WITCHER.Dialog.ButtonRoll")}]+` + formula.split('+').slice(1).join('+') + `+1d${max}x${max}[${Utils.i18n("WITCHER.Crit")}]`;
-                rollResult = await new Roll(formula).evaluate({ async: true });
+                rollResult = await new Roll(formula).evaluate();
                 await rollResult.toMessage(options);
             }
         }

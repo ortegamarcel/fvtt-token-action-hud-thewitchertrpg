@@ -54,8 +54,7 @@
   "compatibleCoreVersion": "10",
   "compatibility": {
     "minimum": "10",
-    "verified": "10.291",
-    "maximum": 11
+    "verified": "12.328"
   },
   "url": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
   "manifest": "AUTOMATICALLY REPLACED BY GITHUB WORKFLOW ACTION",
