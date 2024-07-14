@@ -12,7 +12,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         }
         
         /** @override */
-        doGetActionHandler(categoryManager) {
+        getActionHandler(categoryManager) {
             return new ActionHandler(categoryManager);
         }
 
@@ -24,17 +24,17 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         }
 
         /** @override */
-        doGetRollHandler(handlerId) {
+        getRollHandler(handlerId) {
             return new RollHandler();
         }
 
         /** @override */
-        /*doRegisterSettings(updateFunc) {
+        /*registerSettings(updateFunc) {
             systemSettings.register(updateFunc)
         }*/
 
         /** @override */
-        async doRegisterDefaultFlags() {
+        async registerDefaults() {
             const defaults = DEFAULTS;
             return defaults;
         }
