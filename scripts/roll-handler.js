@@ -51,13 +51,13 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     }
                     break;
                 case ACTION_TYPE.skill:
+                    const statNum = Number(args[0]);
+                    const skillNum = Number(args[1]);
                     try {
                         if (Utils.getSetting('rollSkillsNatively')) {
                             // This will throw an error, if the system does not expose this method (which is the case in v0.96 and lower).
                             // Handling for Stexinators fork https://github.com/Stexinator/TheWitcherTRPG
                             if(!CONFIG.WITCHER?.skillMap) {
-                                const statNum = Number(args[0] );
-                                const skillNum = Number(args[1]);
                                 actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
                             } else {
                                 actor.sheet._onSkillRoll.call(actor.sheet, CONFIG.WITCHER.skillMap[args[0]]);
