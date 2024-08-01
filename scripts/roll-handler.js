@@ -11,10 +11,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             if (payload.length < 3) {
                 super.throwInvalidValueErr();
             }
-        
+
             const action = payload[0];
-            const actorId  = payload[1];
-            const tokenId  = payload[2];
+            const actorId = payload[1];
+            const tokenId = payload[2];
             const args = payload.slice(3);
 
             const actor = Utils.getActor(actorId, tokenId);
@@ -22,13 +22,13 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const item = actor.items.get(itemId);
             let _event;
             let boardId;
-                
+
             switch (action) {
                 case ACTION_TYPE.attack:
                     actor.sheet._onItemRoll.call(actor.sheet, null, itemId);
                     break;
                 case ACTION_TYPE.defense:
-                    actor.sheet._onDefenceRoll.call(actor.sheet);
+                    actor.sheet._onDefenseRoll.call(actor.sheet);
                     break;
                 case ACTION_TYPE.initiative:
                     actor.rollInitiative({ createCombatants: true, rerollInitiative: true });
@@ -55,13 +55,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     const skillNum = Number(args[1]);
                     try {
                         if (Utils.getSetting('rollSkillsNatively')) {
-                            // This will throw an error, if the system does not expose this method (which is the case in v0.96 and lower).
-                            // Handling for Stexinators fork https://github.com/Stexinator/TheWitcherTRPG
-                            if(!CONFIG.WITCHER?.skillMap) {
-                                actor.sheet._onSkillRoll.call(actor.sheet, statNum, skillNum);
-                            } else {
-                                actor.sheet._onSkillRoll.call(actor.sheet, CONFIG.WITCHER.skillMap[args[0]]);
-                            }
+                            actor.rollSkillCheck(CONFIG.WITCHER.skillMap[args[0]]);
                         } else {
                             await this._backupSkillRoll(actor, statNum, skillNum);
                         }
@@ -138,7 +132,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     btn,
                     cancel: {
                         label: Utils.i18n('WITCHER.Button.Cancel'),
-                        callback: () => {}
+                        callback: () => { }
                     }
                 };
             }
@@ -155,7 +149,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const isPotion = item.system.type == 'potion';
             const isDecoction = item.system.type == 'decoction';
             const isFoodOrDring = item.system.type == 'food-drink';
-            
+
             let verb;
             if (isOil) {
                 verb = "TAH_WITCHER.consumeOil";
@@ -189,7 +183,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                         title = "TAH_WITCHER.Chat.actorConsumedPotion";
                     } else if (isDecoction) {
                         title = "TAH_WITCHER.Chat.actorConsumedDecoction";
-                    } else if (isFoodOrDring) { 
+                    } else if (isFoodOrDring) {
                         title = "TAH_WITCHER.Chat.actorConsumedFoodOrDrink";
                     }
                     title = Utils.i18n(title);
@@ -242,7 +236,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
         _createDatasetEvent(dataset) {
             return {
-                preventDefault: () => {},
+                preventDefault: () => { },
                 currentTarget: {
                     closest: () => ({ dataset })
                 }
@@ -252,7 +246,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         /** Fallback method when using TheWitcherTRPG v0.96 or older, since it doesn't expose the `_onSkillRoll`-Method. */
         async _backupSkillRoll(actor, statNum, skillNum) {
             const skills = Object.values(SKILL).map(skillSet => Object.entries(skillSet).map(([id, skill]) => ({ ...skill, id }))).flat();
-            const skill = skills.find(skill => skill.statNum == statNum &&  skill.skillNum == skillNum);
+            const skill = skills.find(skill => skill.statNum == statNum && skill.skillNum == skillNum);
             const actorSkill = actor.system.skills[skill.stat]?.[skill.id];
             if (!actorSkill) {
                 console.error(`${MODULE.ID} | Could not find skill [${statNum}, ${skillNum}]`);
